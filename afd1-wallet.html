@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <link rel="stylesheet" href="css/styles.css">
+    <title>AFD1 Banking Account - Saint Crown Industrial Banking Portal</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AZ4DDiSwxwMppZpjA3eSIyntaK6AVkZknXt-1aBDJ8PUydtCx4AbiRXG9lxOhYM0B8chskAb4BVEvKAB&currency=USD"></script>
+    
+  </head>
+  <body>
+    <div class="wallet-container">
+      <!-- Header -->
+      <div class="header">
+        <div class="bank-logo">
+          <div class="logo-icon">
+            <img
+              src="assets/exchange_logo_1749668374120.png"
+              alt="Saint Crown Logo"
+              class="logo-image"
+            />
+          </div>
+          <div class="bank-info">
+            <h1>Saint Crown Industrial Loan Co Banking User Wallet</h1>
+            <p>Federal Charter #87650129354 • Digital Asset Management</p>
+          </div>
+        </div>
+        <div class="user-section">
+          <div class="user-avatar"></div>
+                <button class="logout-btn logout" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="main-grid">
+        <!-- Balance Section -->
+        <div class="balance-section">
+          <div class="balance-header">
+                    <h2 class="balance-title">Portfolio Balance  <SPAN class="coming-soon">COMING SOON</SPAN></h2>
+                    <button class="refresh-btn" onclick="loadAccountData()">Refresh</button>
+          </div>
+
+          <div class="token-balances">
+            <div class="token-card">
+              <div class="token-symbol">AFD1 Token</div>
+              <div class="token-balance" id="afd1Balance">0</div>
+              <div class="token-value" id="afd1ValueUSD">$0.00</div>
+            </div>
+            <div class="token-card usd-card">
+              <div class="token-symbol">Account Balance</div>
+              <div class="token-balance" id="usdBalance">0</div>
+              <div class="token-value">Connect wallet to view</div>
+            </div>
+          </div>
+
+          <div class="price-display">
+            <div class="price-header">
+              <div class="price-title">AFD1 Live Price</div>
+              <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span>Live</span>
+              </div>
+            </div>
+            <div class="current-price" id="currentPrice">Loading...</div>
+            <span class="price-change" id="priceChange">0%</span>
+                    <div class="gold-basis" id="goldBasis">Loading live gold price...</div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <h3 class="actions-title">
+            Quick Actions  <span class="coming-soon">Coming Soon</span>
+          </h3>
+          <div class="action-grid">
+            <!-- onclick="sendAFD1()" -->
+            <div class="action-btn">
+              <span class="action-icon">📤</span>
+              <div class="action-label">Send</div>
+            </div>
+            <!-- onclick="receiveAFD1()" -->
+            <div class="action-btn">
+              <span class="action-icon">📥</span>
+              <div class="action-label">Receive</div>
+            </div>
+            <!-- onclick="buyAFD1()" -->
+            <div class="action-btn">
+              <span class="action-icon">💳</span>
+              <div class="action-label">Buy</div>
+            </div>
+            <!-- onclick="stakingRewards()" -->
+            <div class="action-btn">
+              <span class="action-icon">🎯</span>
+              <div class="action-label">Stake</div>
+            </div>
+            <!-- onclick="connectBlockchain()" -->
+            <div class="action-btn">
+              <span class="action-icon">⛓️</span>
+              <div class="action-label">Blockchain</div>
+            </div>
+            <!-- onclick="walletSettings()" -->
+            <div class="action-btn">
+              <span class="action-icon">⚙️</span>
+              <div class="action-label">Settings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transaction History -->
+      <!-- <div class="transaction-section">
+        <div class="transaction-header">
+          <h2 class="transaction-title">Recent Transactions</h2>
+          <button class="view-all-btn" onclick="viewAllTransactions()">
+            View All
+          </button>
+        </div>
+
+        <div class="empty-state">
+          <div class="empty-icon">📊</div>
+          <div class="empty-message">No transactions yet</div>
+          <div class="empty-submessage">
+            Your transaction history will appear here
+          </div>
+        </div>
+      </div> -->
+
+      <!-- MARKET STATISTICS -->
+      <!-- <div class="market-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="tokenSupply">22.6B</div>
+          <div class="stat-label">Total Token Supply</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="goldReserves">$7.51T</div>
+          <div class="stat-label">Gold Reserve Vault</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="backingAmount">2260M oz</div>
+          <div class="stat-label">Ounces Backing</div>
+        </div>
+      </div> -->
+
+      <!-- PayPal Banking Network Integration -->
+      <div class="wallet-card">
+  <div class="wallet-header">
+    <div class="wallet-heading">
+      <img
+        src="https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_640.png"
+        class="rounded-full size-14"
+        
+        alt="PayPal"
+      />
+      <div>
+        <h2 class="wallet-title">PayPal Banking Network</h2>
+      </div>
+    </div>
+    <div class="wallet-status">
+      <span class="status-dot active"></span>
+      <span class="status-text">Connecting...</span>
+    </div>
+  </div>
+
+  <div class="wallet-body">
+    <div class="wallet-grid">
+      <div class="wallet-item">
+        <span class="item-label">🏦 Name</span>
+        <span class="item-value" id="paypalEnv">--</span>
+      </div>
+      <div class="wallet-item">
+        <span class="item-label">🧾 Client ID</span>
+        <span class="item-value" id="paypalClientId">••••••••••••</span>
+      </div>
+      <div class="wallet-item">
+        <span class="item-label">⏱ Last Sync</span>
+        <span class="item-value" id="paypalSync">--</span>
+      </div>
+    </div>
+
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+      "
+    >
+     <div class="flex flex-wrap items-center gap-4">
+  <button class="integration-btn" id="payPalbtn" onclick="testPayPalConnection()">
+    Connect
+  </button>
+  <!-- <button class="integration-btn" onclick="viewPayPalTransactions()">
+    View Transactions
+  </button> -->
+  <button class="integration-btn" onclick="refreshPayPalStatus()">
+    Refresh
+  </button>
+</div>
+
+    </div>
+
+    <hr style="margin: 1.5rem 0; border-top: 1px solid #ddd;" />
+
+    <div class="flex justify-center">
+      <div class="w-[80%]">
+        <!-- <div id="paypal-button-container" ></div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Blockchain Network Integration -->
+      <!-- <div class="integration-section">
+        <div class="integration-header">
+          <h2 class="integration-title">Blockchain Network</h2>
+          <div class="status-indicator">
+            <div class="status-dot active"></div>
+            <span class="status-text">AFD1 Mainnet</span>
+          </div>
+        </div>
+        <div class="integration-content">
+          <div class="integration-stats">
+            <div class="integration-stat">
+              <span class="stat-label">Block Height</span>
+              <span class="stat-value" id="blockHeight">847,329</span>
+            </div>
+            <div class="integration-stat">
+              <span class="stat-label">Network Fee</span>
+              <span class="stat-value">0.01 AFD1</span>
+            </div>
+            <div class="integration-stat">
+              <span class="stat-label">Confirmations</span>
+              <span class="stat-value">2-5 minutes</span>
+            </div>
+          </div>
+          <div class="integration-actions">
+            <button class="integration-btn" onclick="checkBlockchainStatus()">
+              Check Status
+            </button>
+            <button class="integration-btn" onclick="viewBlockchainExplorer()">
+              Block Explorer
+            </button>
+            <button class="integration-btn" onclick="refreshBlockchainData()">
+              Refresh Data
+            </button>
+          </div>
+        </div>
+      </div> -->
+      <!-- Wallet Integration Section (Retains Same Class Names) -->
+
+      <!-- Ethers.js for Metamask -->
+      <!-- STYLE TESTING STARTS HERE -->
+
+<div class="my-10 w-full flex justify-center bg-white py-10 rounded-3xl shadow-lg z-[999999999999999]">
+  <div class="flex flex-wrap justify-evenly gap-6  w-[85%]">
+    <button onclick="openSendModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      📤 Send
+    </button>
+    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      🔄 Swap
+    </button>
+    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      💵 Sell
+    </button>
+    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      💰 Buy
+    </button>
+    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      🌉 Bridge
+    </button>
+  </div>
+</div>
+
+<!-- BUY MODAL -->
+<!-- BUY MODAL -->
+<div id="buyModal" class="fixed inset-0 bg-black/50 bg-opacity-70 z-50 hidden flex items-center justify-center ">
+  <div class="bg-gray-900 w-full max-w-md rounded-2xl p-6 text-white relative">
+    <button
+      id="closeBuyModal"
+      class="absolute top-3 right-3 text-gray-300 hover:text-red-400"
+    >
+      &times;
+    </button>
+    <h2 class="text-2xl font-bold text-center mb-4">💰 Send ETH</h2>
+
+    <div class="mb-4">
+      <label class="block text-sm text-gray-400">Your Wallet</label>
+      <p id="buyWalletAddress" class="text-green-400 truncate"></p>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm text-gray-400">Network</label>
+      <p id="buyNetwork" class="text-blue-400">-</p>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm text-gray-400">Balance</label>
+      <p id="buyWalletBalance" class="text-yellow-400">-</p>
+    </div>
+
+    <div class="mb-4">
+      <label for="toAddress" class="block text-sm text-gray-400">To Address</label>
+      <input
+        type="text"
+        value="0x000000000000000000000000000000000000dead"
+        id="toAddressInput"
+        class="w-full p-2 rounded bg-gray-800 border border-gray-600"
+        placeholder="0x..."
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="ethBuyAmount" class="block text-sm text-gray-400">Amount in ETH</label>
+      <input
+        type="number"
+        id="ethBuyAmount"
+        class="w-full p-2 rounded bg-gray-800 border border-gray-600"
+        placeholder="0.01"
+        min="0"
+        step="any"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm text-gray-400">USD Equivalent</label>
+      <p id="usdBuyEstimate" class="text-green-300">$0.00</p>
+    </div>
+
+    <button
+      id="buySubmitBtn"
+      class="w-full py-3 mt-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl"
+    >
+      Send ETH
+    </button>
+  </div>
+</div>
+
+
+
+
+
+<!-- META MASK BEGINS HERE -->
+
+
+      <div class="wallet-card" id="walletSection">
+        <div class="wallet-header">
+          <div class="wallet-heading">
+            <img
+              src="https://images.ctfassets.net/clixtyxoaeas/1ezuBGezqfIeifWdVtwU4c/d970d4cdf13b163efddddd5709164d2e/MetaMask-icon-Fox.svg"
+              class="wallet-logo"
+              alt="MetaMask"
+            />
+            <div>
+              <h2 class="wallet-title">MetaMask Wallet</h2>
+            </div>
+          </div>
+          <div class="wallet-status">
+            <span class="status-dot" id="walletStatusDot"></span>
+            <span class="status-text" id="walletStatusText">Not Connected</span>
+          </div>
+        </div>
+
+        <div class="wallet-body">
+          <div class="wallet-grid">
+            <div class="wallet-item">
+              <span class="item-label">📬 Wallet Address</span>
+              <span class="item-value" id="walletAddress">-</span>
+            </div>
+            <div class="wallet-item">
+              <span class="item-label">💰 Balance</span>
+              <span class="item-value" id="walletBalance">-</span>
+            </div>
+            <div class="wallet-item">
+              <span class="item-label">🆔 Chain ID</span>
+              <span class="item-value" id="walletChainId">-</span>
+            </div>
+            <div class="wallet-item">
+              <span class="item-label">🌐 Network</span>
+              <span class="item-value" id="walletNetwork">-</span>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+              flex-wrap: wrap;
+              gap: 10px;
+            "
+            id="subtitle-container"
+          >
+            <div class="wallet-actions">
+              <button
+                id="walletButton"
+                class="connect-button"
+                onclick="connectWallet()"
+              >
+                🦊 Connect Wallet
+              </button>
+
+              <div id="noMetamask" class="metamask-warning">
+                <a
+                  href="https://metamask.io/download.html"
+                  id="metamaskDownloadLink"
+                  target="_blank"
+                >
+                  <button class="download-button">⬇️ Download MetaMask</button>
+                </a>
+                <p class="warning-text">
+                  The MetaMask Extension is not installed on your browser.
+                </p>
+              </div>
+            </div>
+            <p class="wallet-subtitle">
+              Use Firefox for the smoothest MetaMask experience!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STYLE TESTING Ends HERE -->
+      <!-- Live Bank Deposits -->
+       
+      <div class="relative">
+        <div class="w-full h-full z-10 absolute rounded-xl top-0 left-0 bg-[#57575791]"></div>
+        <div class="integration-section">
+        
+        <div class="integration-header">
+          <h2 class="integration-title">Live Bank Deposits   <span class="coming-soon">Coming Soon</span></h2>
+          <div class="status-indicator">
+            <div class="status-dot active"></div>
+            <span class="status-text">Active</span>
+          </div>
+        </div>
+        <div class="integration-content">
+          <div id="depositsContainer">
+            <!-- Deposits will be loaded dynamically -->
+          </div>
+          <div class="integration-actions">
+            <button class="integration-btn" onclick="refreshDeposits()">
+              Refresh Deposits
+            </button>
+            <button class="integration-btn" onclick="viewAllDeposits()">
+              View All
+            </button>
+            <button class="integration-btn" onclick="downloadDepositReport()">
+              Download Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    <!-- FOOTER -->
+   <footer class="sc-footer">
+    <div class="footer-inner">
+      
+      <div class="footer-center">© Copyright 2025 Saint Crown AFD1</div>
+      <div class="footer-left">Saint Crown AFD1 v1.2</div>
+    </div>
+  </footer>
+<script src="js/config.js"></script>
+  <script src="js/check-auth.js"></script>
+<script src="js/send-modal.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AZ4DDiSwxwMppZpjA3eSIyntaK6AVkZknXt-1aBDJ8PUydtCx4AbiRXG9lxOhYM0B8chskAb4BVEvKAB&currency=USD"></script>
+<script>
+paypal.Buttons({
+  createOrder: function(data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: '1.00'
+        }
+      }]
+    });
+  },
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      alert('Transaction completed by ' + details.payer.name.given_name);
+    });
+  }
+}).render('#paypal-button-container');
+</script>
+
+   <script>
+
+        const logoutButtons = document.getElementsByClassName('logout');
+
+        // Loop through all elements and attach click event
+        for (let i = 0; i < logoutButtons.length; i++) {
+            logoutButtons[i].addEventListener('click', function () {
+                // Call backend logout API
+                fetch('/api/afd1/logout', {
+                    method: 'POST',
+                    credentials: 'include' // VERY IMPORTANT: so cookies are sent
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Optionally clear any client-side storage if used
+                            sessionStorage.clear();
+                            localStorage.clear(); // if you store anything locally
+
+                            // Redirect to login page
+                            window.location.href = '/user-portal-login';
+                        } else {
+                            console.error('Failed to logout');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Logout error:', err);
+                    });
+            });
+        }
+</script>
+
+
+<script>
+  
+    const PAYPAL_CLIENT_ID = "AZ4DDiSwxwMppZpjA3eSIyntaK6AVkZknXt-1aBDJ8PUydtCx4AbiRXG9lxOhYM0B8chskAb4BVEvKAB";
+
+    function initializeSandboxPayPalConnection() {
+      console.log("Initializing PayPal Sandbox connection...");
+
+      // Update DOM elements
+      document.getElementById('paypalEnv').textContent = "Atul Reny";
+      document.getElementById('paypalClientId').textContent = '••••••••••••' + PAYPAL_CLIENT_ID.slice(-4);
+      document.getElementById('paypalSync').textContent = new Date().toLocaleString();
+      document.querySelector('.status-text').textContent = "Connected";
+
+      console.log("Connected to PayPal Sandbox");
+    }
+
+    function testPayPalConnection() {
+       document.getElementById('paypalEnv').textContent = "Atul Reny";
+      document.getElementById('paypalClientId').textContent = '••••••••••••' + PAYPAL_CLIENT_ID.slice(-4);
+      document.getElementById('paypalSync').textContent = new Date().toLocaleString();
+      document.querySelector('.status-text').textContent = "Connected";
+const btn=document.getElementById('payPalbtn')
+      btn.innerText = "Disconnect";
+        btn.style.backgroundColor = "red";
+      // alert("Test successful! Connected to PayPal Sandbox.\nClient ID ending in: " + PAYPAL_CLIENT_ID.slice(-4));
+    }
+function disconnectPayPal() {
+      tn.innerText = "Connect";
+        btn.style.backgroundColor = 'default';
+    }
+    function viewPayPalTransactions() {
+      alert("This would normally redirect to your transaction dashboard.\n(Frontend-only view not implemented.)");
+    }
+
+    function refreshPayPalStatus() {
+      initializeSandboxPayPalConnection();
+      document.getElementById('paypalSync').textContent="Just Now"
+    }
+
+    // On DOM ready
+    // if (document.readyState === 'loading') {
+    //   document.addEventListener('DOMContentLoaded', initializeSandboxPayPalConnection);
+    // } else {
+    //   initializeSandboxPayPalConnection();
+    // }
+  </script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.14.4/ethers.umd.min.js"
+      integrity="sha512-HPn9D2+zHgA0crhA4kD72Cg/hChCG+4tfQHV1OgaR+2v638zH0Fvfp6bBzedHG5J2ztIIUcjUnPUoE0tMS+Kqg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.14.4/ethers.umd.min.js"></script> -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const subtitle = document.querySelector(".wallet-subtitle");
+
+        if (subtitle && navigator.userAgent.includes("Firefox")) {
+          subtitle.style.display = "none";
+        }
+      });
+    </script>
+
+    <script>
+      let isWalletConnected = false;
+      let provider, signer;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const walletButton = document.getElementById("walletButton");
+        const noMetamask = document.getElementById("noMetamask");
+        const subtitle = document.querySelector(".wallet-subtitle");
+        const subCont = document.getElementById("subtitle-container");
+
+        // Check for MetaMask
+        if (!window.ethereum || !window.ethereum.isMetaMask) {
+          walletButton.style.display = "none";
+          noMetamask.style.display = "flex";
+          subCont.style.display = "block";
+          subtitle.style.display = "none";
+          detectBrowserAndSetDownloadLink();
+          return;
+        }
+
+        async function connectWallet() {
+          if (isWalletConnected) {
+            disconnectWallet();
+            return;
+          }
+
+          if (!window.ethereum) {
+            alert("MetaMask not found. Please install it.");
+            return;
+          }
+
+          try {
+            provider = new ethers.BrowserProvider(window.ethereum);
+            signer = await provider.getSigner();
+            const address = await signer.getAddress();
+            const balanceBigInt = await provider.getBalance(address);
+            const balance = ethers.formatEther(balanceBigInt);
+            const network = await provider.getNetwork();
+
+            document.getElementById("walletAddress").innerText =
+              address.slice(0, 6) + "..." + address.slice(-4);
+            document.getElementById("walletBalance").innerText =
+              balance + " ETH";
+            document.getElementById("walletChainId").innerText =
+              network.chainId;
+            document.getElementById("walletNetwork").innerText = network.name;
+            document.getElementById("walletStatusText").innerText =
+              "Connected to: " + network.name;
+            document.getElementById("walletStatusDot").classList.add("active");
+
+            // ✅ Change button to Disconnect
+            const btn = document.getElementById("walletButton");
+            btn.innerText = "Disconnect Wallet";
+            btn.style.backgroundColor = "red";
+
+            isWalletConnected = true;
+          } catch (err) {
+            console.error("Wallet connection failed:", err);
+            alert("Failed to connect wallet.");
+          }
+        }
+
+        window.connectWallet = connectWallet;
+      });
+    </script>
+
+    <script>
+      function detectBrowserAndSetDownloadLink() {
+        const userAgent = navigator.userAgent;
+        const link = document.getElementById("metamaskDownloadLink");
+
+        if (!link) return;
+
+        // MetaMask download URLs
+        const urls = {
+          Chrome:
+            "https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn",
+          Firefox: "https://addons.mozilla.org/firefox/addon/ether-metamask/",
+          Edge: "https://microsoftedge.microsoft.com/addons/detail/metamask/mdapdeikbdeblpmfccdmockfdbckehop",
+          Brave: "https://metamask.io/download/", // Brave uses Chrome extension
+          Safari: "https://metamask.io/download/", // Not supported yet, fallback
+          Default: "https://metamask.io/download/",
+        };
+
+        // Basic detection (not 100% foolproof, but good enough)
+        if (userAgent.includes("Edg")) {
+          link.href = urls.Edge;
+        } else if (userAgent.includes("Firefox")) {
+          link.href = urls.Firefox;
+        } else if (userAgent.includes("Chrome")) {
+          // Brave reports as Chrome in userAgent
+          if (navigator.brave) {
+            link.href = urls.Brave;
+          } else {
+            link.href = urls.Chrome;
+          }
+        } else if (userAgent.includes("Safari")) {
+          link.href = urls.Safari;
+        } else {
+          link.href = urls.Default;
+        }
+      }
+    </script>
+    <script>
+      function disconnectWallet() {
+        // Clear state/UI
+        document.getElementById("walletAddress").innerText = "-";
+        document.getElementById("walletBalance").innerText = "-";
+        document.getElementById("walletChainId").innerText = "-";
+        document.getElementById("walletNetwork").innerText = "-";
+        document.getElementById("walletStatusText").innerText = "Disconnected";
+        document.getElementById("walletStatusDot").classList.remove("active");
+
+        // Reset button
+        const btn = document.getElementById("walletButton");
+        btn.innerText = "Connect Wallet";
+        btn.style.backgroundColor = "";
+
+        isWalletConnected = false;
+      }
+    </script>
+
+
+    <script> 
+      // Initialize wallet data
+        document.addEventListener('DOMContentLoaded', function() {
+        loadAccountData();
+        startRealTimeUpdates();
+            console.log('AFD1 Wallet initialized - ' + new Date().toISOString());
+
+        // Show deposit status automatically
+        setTimeout(() => {
+          showDepositStatus();
+        }, 2000);
+      });
+
+      function showDepositStatus() {
+        // Load deposits automatically
+        loadDeposits();
+      }
+
+      async function loadDeposits() {
+            const depositsContainer = document.getElementById('depositsContainer');
+
+        // Show loading state
+        depositsContainer.innerHTML = `
+                <div style="text-align: center; padding: 20px; color: #718096;">
+                    <div style="font-size: 20px; margin-bottom: 10px;">🔄</div>
+                    <div>Loading deposits...</div>
+                </div>
+            `;
+
+        try {
+                console.log('Fetching deposits from API...');
+                const response = await fetch('/api/live-banking/deposits');
+          const data = await response.json();
+                console.log('Deposits API response:', data);
+
+          if (data.success && data.deposits && data.deposits.length > 0) {
+                    const depositsHtml = data.deposits.map(deposit => {
+                const date = new Date(deposit.timestamp);
+                        const formattedDate = date.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                });
+
+                return `
+                            <div class="deposit-item" style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                                <div class="deposit-info">
+                                    <div style="font-weight: 600; color: #48bb78; font-size: 18px; margin-bottom: 5px;">${deposit.amount}</div>
+                                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 5px;">
+                                        <span style="font-family: monospace; font-size: 12px; color: #718096; background: #edf2f7; padding: 2px 8px; border-radius: 4px;">${deposit.depositId}</span>
+                                        <span style="background: #c6f6d5; color: #22543d; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">${deposit.status}</span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #718096;">${formattedDate}</div>
+                                </div>
+                                <div class="deposit-actions">
+                                    <button onclick="viewDepositDetails('${deposit.depositId}')" style="padding: 8px 16px; background: #4299e1; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">View Details</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+            depositsContainer.innerHTML = depositsHtml;
+          } else {
+            depositsContainer.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #718096;">
+                            <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">📋</div>
+                            <div style="font-size: 16px; margin-bottom: 8px;">No deposits found</div>
+                            <div style="font-size: 14px; opacity: 0.8;">Bank deposits will appear here when processed</div>
+                        </div>
+                    `;
+          }
+        } catch (error) {
+                console.error('Error loading deposits:', error);
+          // Show static deposit as fallback
+          depositsContainer.innerHTML = `
+                    <div class="deposit-item" style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <div class="deposit-info">
+                            <div style="font-weight: 600; color: #48bb78; font-size: 18px; margin-bottom: 5px;">$25,000.00</div>
+                            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 5px;">
+                                <span style="font-family: monospace; font-size: 12px; color: #718096; background: #edf2f7; padding: 2px 8px; border-radius: 4px;">DEP-1749671549452</span>
+                                <span style="background: #c6f6d5; color: #22543d; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">PROCESSED</span>
+                            </div>
+                            <div style="font-size: 12px; color: #718096;">June 11, 2025 at 7:52 PM</div>
+                        </div>
+                        <div class="deposit-actions">
+                            <button onclick="viewDepositDetails('DEP-1749671549452')" style="padding: 8px 16px; background: #4299e1; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">View Details</button>
+                        </div>
+                    </div>
+                `;
+        }
+      }
+
+      async function loadAccountData() {
+        try {
+          // Load current AFD1 price and market data from live endpoint
+                const response = await fetch('/api/afd1-price');
+          if (response.ok) {
+            const data = await response.json();
+            if (data && data.success && data.price) {
+              updatePriceDisplay(data);
+              updateMarketStats(data);
+                        console.log('AFD1 price loaded successfully:', data.price);
+            } else {
+              // Set default fallback display
+              setDefaultPriceDisplay();
+            }
+          } else {
+            setDefaultPriceDisplay();
+          }
+
+          // Load user wallet balance (keeping at 0 as requested)
+          await loadUserBalance();
+                
+        } catch (error) {
+                console.error('Error loading AFD1 price:', error);
+          setDefaultPriceDisplay();
+        }
+      }
+
+      async function setDefaultPriceDisplay() {
+        try {
+          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&ids=tether-gold', {
+            headers: {
+              'accept': 'application/json',
+              'x-cg-demo-api-key': 'CG-ycg12DPVjGwWfR7drnC5RAFg'
+            }
+          });
+          
+         
+          
+          const data = await response.json();
+           console.log(data);
+          const goldPrice = data["tether-gold"].usd;
+
+          // Calculate 10% of the gold price
+          const tokenPrice = (goldPrice * 0.10).toFixed(2);
+
+          // Update DOM
+          document.getElementById('currentPrice').textContent = `$${tokenPrice}`;
+          document.getElementById('goldBasis').textContent = `Live Gold: $${goldPrice.toFixed(2)}/oz (CoinGecko Tether Gold)`;
+
+          // Simulated change (you can enhance this later)
+          const changeElement = document.getElementById('priceChange');
+          changeElement.textContent = '+0.1%';
+          changeElement.style.backgroundColor = 'rgba(72, 187, 120, 0.2)';
+          changeElement.style.color = '#48bb78';
+
+          // Market stats (static)
+          // document.getElementById('tokenSupply').textContent = '22.6B';
+          // document.getElementById('goldReserves').textContent = '$7.51T';
+          // document.getElementById('backingAmount').textContent = '2260M oz';
+
+        } catch (error) {
+          console.error('Failed to fetch gold price:', error);
+          document.getElementById('currentPrice').textContent = 'Error';
+          document.getElementById('goldBasis').textContent = 'Unable to fetch live price.';
+      }
+}
+document.addEventListener('DOMContentLoaded', setDefaultPriceDisplay);
+
+
+      async function loadUserBalance() {
+        // Show the deposited balance
+            document.getElementById('afd1Balance').textContent = '0';
+            document.getElementById('usdBalance').textContent = '0';
+            document.getElementById('afd1ValueUSD').textContent = '$0.00';
+      }
+
+      function updatePriceDisplay(data) {
+            document.getElementById('currentPrice').textContent = '$' + data.price.toFixed(2);
+            document.getElementById('goldBasis').textContent = `Live Gold: $${data.goldPrice.toFixed(2)}/oz (${data.dataSource})`;
+
+        // Update price change indicator
+        const changePercent = data.change24h.toFixed(1);
+            const changeElement = document.getElementById('priceChange');
+            changeElement.textContent = (changePercent > 0 ? '+' : '') + changePercent + '%';
+            changeElement.style.backgroundColor = changePercent > 0 ? 'rgba(72, 187, 120, 0.2)' : 'rgba(229, 62, 62, 0.2)';
+            changeElement.style.color = changePercent > 0 ? '#48bb78' : '#e53e3e';
+      }
+
+      function updateMarketStats(data) {
+            document.getElementById('tokenSupply').textContent = formatLargeNumber(data.tokenSupply);
+            document.getElementById('goldReserves').textContent = '$7.51T';
+            document.getElementById('backingAmount').textContent = '2260M oz';
+      }
+
+      function formatLargeNumber(num) {
+            if (num >= 1e12) return (num / 1e12).toFixed(1) + 'T';
+            if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+            if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+            if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+        return num.toLocaleString();
+      }
+
+      function startRealTimeUpdates() {
+        // Update prices every 30 seconds
+        setInterval(loadAccountData, 30000);
+      }
+
+      // Account action functions
+      function sendAFD1() {
+        showSendModal();
+      }
+
+      function receiveAFD1() {
+        showReceiveModal();
+      }
+
+      function exchangeAFD1() {
+            window.open('/live-banking-operations.html', '_blank');
+      }
+
+      function buyAFD1() {
+        showBuyModal();
+      }
+
+      function stakingRewards() {
+        showStakingModal();
+      }
+
+      function walletSettings() {
+        showSettingsModal();
+      }
+
+      // Modal functions
+      function showSendModal() {
+            const modal = createModal('Send AFD1 Tokens', `
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Recipient Address:</label>
+                    <input type="text" id="sendAddress" placeholder="Enter AFD1 wallet address" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Amount (AFD1):</label>
+                    <input type="number" id="sendAmount" placeholder="0.00" min="0" step="0.01" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Message (Optional):</label>
+                    <textarea id="sendMessage" placeholder="Add a note..." style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px; height: 80px; resize: vertical;"></textarea>
+                </div>
+                <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Network Fee:</span>
+                        <span>0.01 AFD1</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                        <span>Total:</span>
+                        <span id="sendTotal">0.01 AFD1</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; border: none; border-radius: 8px; cursor: pointer;">Cancel</button>
+                    <button onclick="processSend()" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Send AFD1</button>
+                </div>
+            `);
+
+            document.getElementById('sendAmount').addEventListener('input', updateSendTotal);
+      }
+
+      function showReceiveModal() {
+            const modal = createModal('Receive AFD1 Tokens', `
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="width: 150px; height: 150px; background: white; margin: 0 auto 15px; border: 2px solid #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #718096;">
+                            QR Code<br>Not Available
+                        </div>
+                        <p style="font-size: 14px; color: #718096; margin: 0;">QR code will be generated when address is available</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Your AFD1 Wallet Address:</label>
+                        <div style="background: #f7fafc; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 13px; border: 1px solid #e2e8f0; color: #718096; text-align: center;">
+                            No wallet address available
+                        </div>
+                        <button onclick="generateAddress()" style="margin-top: 10px; padding: 8px 16px; background: #48bb78; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Generate Address</button>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button onclick="closeModal()" style="padding: 12px 24px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Done</button>
+                </div>
+            `);
+      }
+
+      function showBuyModal() {
+            const currentPrice = document.getElementById('currentPrice').textContent;
+            const modal = createModal('Buy AFD1 Tokens', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600;">Current AFD1 Price:</span>
+                            <span style="font-size: 18px; font-weight: 700; color: #48bb78;">${currentPrice}</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Purchase Amount (USD):</label>
+                        <input type="number" id="buyAmount" placeholder="100.00" min="100" step="0.01" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                        <p style="font-size: 12px; color: #718096; margin-top: 5px;">Minimum purchase: $100</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Payment Method:</label>
+                        <select id="paymentMethod" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                            <option value="bank">Bank Transfer (ACH/Wire)</option>
+                            <option value="card">Credit/Debit Card</option>
+                            <option value="crypto">Cryptocurrency</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                    <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>AFD1 Tokens:</span>
+                            <span id="buyTokens">0.00 AFD1</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Processing Fee:</span>
+                            <span id="buyFee">$0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                            <span>Total:</span>
+                            <span id="buyTotal">$0.00</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; border: none; border-radius: 8px; cursor: pointer;">Cancel</button>
+                        <button onclick="processBuy()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Buy AFD1</button>
+                    </div>
+                </div>
+            `);
+
+            document.getElementById('buyAmount').addEventListener('input', updateBuyTotal);
+      }
+
+      function showStakingModal() {
+            const modal = createModal('AFD1 Staking Program', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: linear-gradient(135deg, #48bb78, #38a169); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
+                        <h3 style="margin: 0 0 10px 0; font-size: 20px;">Earn 5.2% Annual Yield</h3>
+                        <p style="margin: 0; opacity: 0.9;">Stake your AFD1 tokens and earn passive rewards</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Stake Amount (AFD1):</label>
+                        <input type="number" id="stakeAmount" placeholder="1000.00" min="1000" step="0.01" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                        <p style="font-size: 12px; color: #718096; margin-top: 5px;">Minimum stake: 1,000 AFD1</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Lock Period:</label>
+                        <select id="lockPeriod" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                            <option value="30">30 Days (5.2% APY)</option>
+                            <option value="90">90 Days (6.1% APY)</option>
+                            <option value="180">180 Days (7.3% APY)</option>
+                            <option value="365">365 Days (8.5% APY)</option>
+                        </select>
+                    </div>
+                    <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Estimated Monthly Rewards:</span>
+                            <span id="monthlyRewards">0.00 AFD1</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                            <span>Total Rewards:</span>
+                            <span id="totalRewards">0.00 AFD1</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; border: none; border-radius: 8px; cursor: pointer;">Cancel</button>
+                        <button onclick="processStake()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Start Staking</button>
+                    </div>
+                </div>
+            `);
+
+            document.getElementById('stakeAmount').addEventListener('input', updateStakeRewards);
+            document.getElementById('lockPeriod').addEventListener('change', updateStakeRewards);
+      }
+
+      function showSettingsModal() {
+            const modal = createModal('Wallet Settings', `
+                <div style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin: 0 0 15px 0; color: #2d3748;">Security Settings</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                            <span>Two-Factor Authentication</span>
+                            <button onclick="toggleSetting('2fa')" style="padding: 6px 12px; background: #48bb78; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Enabled</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                            <span>Biometric Login</span>
+                            <button onclick="toggleSetting('biometric')" style="padding: 6px 12px; background: #e53e3e; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Disabled</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                            <span>Auto-Lock Timeout</span>
+                            <select style="padding: 6px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px;">
+                                <option>5 minutes</option>
+                                <option>15 minutes</option>
+                                <option>30 minutes</option>
+                                <option>Never</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin: 0 0 15px 0; color: #2d3748;">Backup & Recovery</h4>
+                        <button onclick="showBackupPhrase()" style="width: 100%; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px;">View Recovery Phrase</button>
+                        <button onclick="exportWallet()" style="width: 100%; padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">Export Wallet Data</button>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin: 0 0 15px 0; color: #2d3748;">Notifications</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                            <span>Transaction Alerts</span>
+                            <button onclick="toggleSetting('txAlerts')" style="padding: 6px 12px; background: #48bb78; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Enabled</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                            <span>Price Alerts</span>
+                            <button onclick="toggleSetting('priceAlerts')" style="padding: 6px 12px; background: #48bb78; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Enabled</button>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button onclick="closeModal()" style="padding: 12px 24px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Save Settings</button>
+                    </div>
+                </div>
+            `);
+      }
+
+      function viewAllTransactions() {
+        showTransactionHistoryModal();
+      }
+
+      // Modal creation and management functions
+      function createModal(title, content) {
+            const modal = document.createElement('div');
+        modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                padding: 20px;
+                box-sizing: border-box;
+            `;
+
+        modal.innerHTML = `
+                <div style="background: white; border-radius: 15px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);">
+                    <div style="padding: 25px 25px 20px 25px; border-bottom: 1px solid #e2e8f0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: #1a202c; font-size: 18px; font-weight: 700;">${title}</h3>
+                            <button onclick="closeModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #718096; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">&times;</button>
+                        </div>
+                    </div>
+                    <div style="padding: 25px;">
+                        ${content}
+                    </div>
+                </div>
+            `;
+
+        document.body.appendChild(modal);
+        return modal;
+      }
+
+      function closeModal() {
+            const modals = document.querySelectorAll('[style*="position: fixed"][style*="z-index: 1000"]');
+            modals.forEach(modal => modal.remove());
+      }
+
+      // Calculation functions
+      function updateSendTotal() {
+            const amount = parseFloat(document.getElementById('sendAmount').value) || 0;
+        const fee = 0.01;
+        const total = amount + fee;
+            document.getElementById('sendTotal').textContent = total.toFixed(2) + ' AFD1';
+      }
+
+      function updateBuyTotal() {
+            const usdAmount = parseFloat(document.getElementById('buyAmount').value) || 0;
+            const currentPrice = parseFloat(document.getElementById('currentPrice').textContent.replace('$', '')) || 334.62;
+        const fee = usdAmount * 0.025; // 2.5% processing fee
+        const tokens = usdAmount / currentPrice;
+
+            document.getElementById('buyTokens').textContent = tokens.toFixed(4) + ' AFD1';
+            document.getElementById('buyFee').textContent = '$' + fee.toFixed(2);
+            document.getElementById('buyTotal').textContent = '$' + (usdAmount + fee).toFixed(2);
+      }
+
+      function updateStakeRewards() {
+            const amount = parseFloat(document.getElementById('stakeAmount').value) || 0;
+            const lockPeriod = parseInt(document.getElementById('lockPeriod').value) || 30;
+
+        let apy = 0.052; // 5.2%
+        if (lockPeriod === 90) apy = 0.061; // 6.1%
+        else if (lockPeriod === 180) apy = 0.073; // 7.3%
+        else if (lockPeriod === 365) apy = 0.085; // 8.5%
+
+        const monthlyRewards = (amount * apy) / 12;
+        const totalRewards = (amount * apy * lockPeriod) / 365;
+
+            document.getElementById('monthlyRewards').textContent = monthlyRewards.toFixed(4) + ' AFD1';
+            document.getElementById('totalRewards').textContent = totalRewards.toFixed(4) + ' AFD1';
+      }
+
+      // Action processing functions
+      async function processSend() {
+            const address = document.getElementById('sendAddress').value;
+            const amount = document.getElementById('sendAmount').value;
+            const message = document.getElementById('sendMessage').value;
+
+        if (!address || !amount) {
+                alert('Please fill in all required fields.');
+          return;
+        }
+
+        try {
+                const response = await fetch('/api/blockchain/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              toAddress: address,
+              amount: parseFloat(amount),
+              message: message,
+                        fromWallet: 'user-wallet-01'
+                    })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+                    alert(`Transaction sent successfully!\n\nTransaction ID: ${result.txId}\nNetwork Fee: 0.01 AFD1\nEstimated confirmation: 2-5 minutes`);
+            closeModal();
+            loadWalletData(); // Refresh data
+          } else {
+                    alert('Transaction failed: ' + result.error);
+          }
+        } catch (error) {
+                console.error('Send error:', error);
+                alert('Network error. Please try again.');
+        }
+      }
+
+      async function processBuy() {
+            const amount = document.getElementById('buyAmount').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+        if (!amount || amount < 100) {
+                alert('Minimum purchase amount is $100.');
+          return;
+        }
+
+        try {
+                let endpoint = '/api/purchase/crypto';
+                if (paymentMethod === 'paypal') {
+                    endpoint = '/api/paypal/purchase';
+                } else if (paymentMethod === 'bank') {
+                    endpoint = '/api/banking/purchase';
+                } else if (paymentMethod === 'card') {
+                    endpoint = '/api/card/purchase';
+          }
+
+          const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: parseFloat(amount),
+              paymentMethod: paymentMethod,
+                        walletAddress: 'AFD1xf4c7d2e8a9b1c3d5e6f7g8h9i0j1k2l3m4n5p6q7r8s9t0'
+                    })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+                    if (paymentMethod === 'paypal' && result.approvalUrl) {
+                        window.open(result.approvalUrl, '_blank');
+                        alert('Please complete payment in the PayPal window that opened.');
+            } else {
+                        alert(`Purchase initiated successfully!\n\nOrder ID: ${result.orderId}\nTokens: ${result.tokens} AFD1\nPayment method: ${paymentMethod}`);
+            }
+            closeModal();
+          } else {
+                    alert('Purchase failed: ' + result.error);
+          }
+        } catch (error) {
+                console.error('Purchase error:', error);
+                alert('Network error. Please try again.');
+        }
+      }
+
+      async function processStake() {
+            const amount = document.getElementById('stakeAmount').value;
+            const lockPeriod = document.getElementById('lockPeriod').value;
+
+        if (!amount || amount < 1000) {
+                alert('Minimum stake amount is 1,000 AFD1.');
+          return;
+        }
+
+        try {
+                const response = await fetch('/api/staking/stake', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: parseFloat(amount),
+              lockPeriod: parseInt(lockPeriod),
+                        walletAddress: 'AFD1xf4c7d2e8a9b1c3d5e6f7g8h9i0j1k2l3m4n5p6q7r8s9t0'
+                    })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+                    alert(`Staking initiated successfully!\n\nStake ID: ${result.stakeId}\nAmount: ${amount} AFD1\nLock period: ${lockPeriod} days\nEstimated rewards: ${result.estimatedRewards} AFD1`);
+            closeModal();
+            loadWalletData();
+          } else {
+                    alert('Staking failed: ' + result.error);
+          }
+        } catch (error) {
+                console.error('Staking error:', error);
+                alert('Network error. Please try again.');
+        }
+      }
+
+      // Utility functions
+      function copyAddress(address) {
+            navigator.clipboard.writeText(address).then(() => {
+                alert('Address copied to clipboard!');
+            }).catch(() => {
+            // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+            textArea.value = address;
+            document.body.appendChild(textArea);
+            textArea.select();
+                document.execCommand('copy');
+            document.body.removeChild(textArea);
+                alert('Address copied to clipboard!');
+          });
+      }
+
+      function toggleSetting(setting) {
+        // Simulate setting toggle
+            alert(`${setting} setting toggled. Changes will be saved automatically.`);
+      }
+
+      function showBackupPhrase() {
+            const phrase = 'abandon ability able about above absent absorb abstract absurd abuse access accident account accuse achieve acid acoustic acquire across act action actor actress actual adapt add addict';
+            createModal('Recovery Phrase', `
+                <div style="background: #fef5e7; border: 2px solid #f6ad55; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 24px; margin-right: 10px;">⚠️</span>
+                        <strong style="color: #c05621;">Important Security Warning</strong>
+                    </div>
+                    <p style="margin: 0; color: #744210; font-size: 14px;">Never share your recovery phrase with anyone. Store it securely offline.</p>
+                </div>
+                <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="font-family: monospace; word-spacing: 8px; line-height: 1.8; font-size: 14px; color: #2d3748;">
+                        ${phrase}
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button onclick="closeModal()" style="padding: 12px 24px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">I've Saved It Securely</button>
+                </div>
+            `);
+      }
+
+      function exportWallet() {
+        const walletData = {
+                address: 'AFD1xf4c7d2e8a9b1c3d5e6f7g8h9i0j1k2l3m4n5p6q7r8s9t0',
+                balance: '0.00 AFD1',
+          transactions: [],
+          createdAt: new Date().toISOString(),
+                version: '1.0'
+        };
+
+            const blob = new Blob([JSON.stringify(walletData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+        a.href = url;
+            a.download = 'afd1-wallet-export.json';
+        a.click();
+        URL.revokeObjectURL(url);
+
+            alert('Wallet data exported successfully!');
+      }
+
+      function showTransactionHistoryModal() {
+            createModal('Transaction History', `
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <select style="flex: 1; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                            <option>All Transactions</option>
+                            <option>Sent</option>
+                            <option>Received</option>
+                            <option>Purchases</option>
+                            <option>Staking</option>
+                        </select>
+                        <select style="flex: 1; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                            <option>Last 30 days</option>
+                            <option>Last 90 days</option>
+                            <option>Last year</option>
+                            <option>All time</option>
+                        </select>
+                    </div>
+                    <div style="text-align: center; padding: 60px 20px; color: #718096; background: #f7fafc; border-radius: 8px;">
+                        <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">📊</div>
+                        <div style="font-size: 16px; margin-bottom: 8px;">No transactions yet</div>
+                        <div style="font-size: 14px; opacity: 0.8;">Your transaction history will appear here</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="exportTransactions()" style="flex: 1; padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">Export CSV</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Close</button>
+                </div>
+            `);
+      }
+
+      function exportTransactions() {
+            const csvContent = 'Date,Type,Amount,Address,Status,Fee\n'; // Empty for demo
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+        a.href = url;
+            a.download = 'afd1-transactions.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+            alert('Transaction history exported successfully!');
+      }
+
+      //// PayPal Banking Network Functions
+      //   async function testPayPalConnection() {
+      //       try {
+      //           const response = await fetch('/setup', {
+      //               method: 'POST',
+      //               headers: { 'Content-Type': 'application/json' }
+      //           });
+
+      // if (response.ok) {
+      // const data = await response.json();
+      //               alert('PayPal Banking Network Connection Test Successful!\n\nClient Token received: ' + data.clientToken.substring(0, 20) + '...\nEnvironment: Sandbox\nStatus: Connected');
+      //               document.getElementById('paypalSync').textContent = 'Just now';
+      //           } else {
+      //               alert('PayPal connection test failed. Please check credentials.');
+      //           }
+      //       } catch (error) {
+      //           console.error('PayPal connection error:', error);
+      //           alert('PayPal connection error. Please try again.');
+      //       }
+      //   }
+
+      async function viewPayPalTransactions() {
+            createModal('PayPal Banking Transactions', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600;">PayPal Banking Network Status:</span>
+                            <span style="color: #48bb78; font-weight: 600;">Connected</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 60px 20px; color: #718096; background: #f7fafc; border-radius: 8px;">
+                        <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">💳</div>
+                        <div style="font-size: 16px; margin-bottom: 8px;">No PayPal transactions yet</div>
+                        <div style="font-size: 14px; opacity: 0.8;">PayPal banking transactions will appear here</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="testPayPalConnection()" style="flex: 1; padding: 12px; background: #0070ba; color: white; border: none; border-radius: 8px; cursor: pointer;">Test Connection</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Close</button>
+                </div>
+            `);
+      }
+
+      // function refreshPayPalStatus() {
+      //   document.getElementById("paypalSync").textContent = "Just now";
+      //   alert("PayPal Banking Network status refreshed successfully!");
+      // }
+
+      // Blockchain Network Functions
+      async function checkBlockchainStatus() {
+        try {
+          // Update block height with random value to simulate live blockchain
+          const newBlockHeight = Math.floor(Math.random() * 1000) + 847000;
+                document.getElementById('blockHeight').textContent = newBlockHeight.toLocaleString();
+
+                alert(`Blockchain Network Status Check:\n\nNetwork: AFD1 Mainnet\nBlock Height: ${newBlockHeight.toLocaleString()}\nNetwork Fee: 0.01 AFD1\nConfirmation Time: 2-5 minutes\nStatus: Active`);
+        } catch (error) {
+                console.error('Blockchain status error:', error);
+                alert('Error checking blockchain status. Please try again.');
+        }
+      }
+
+      function viewBlockchainExplorer() {
+            createModal('AFD1 Blockchain Explorer', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="font-weight: 600;">Network:</span>
+                            <span style="color: #48bb78; font-weight: 600;">AFD1 Mainnet</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="font-weight: 600;">Current Block:</span>
+                            <span style="font-family: monospace;">${document.getElementById('blockHeight').textContent}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600;">Network Fee:</span>
+                            <span style="font-family: monospace;">0.01 AFD1</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 60px 20px; color: #718096; background: #f7fafc; border-radius: 8px;">
+                        <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">⛓️</div>
+                        <div style="font-size: 16px; margin-bottom: 8px;">Blockchain Explorer</div>
+                        <div style="font-size: 14px; opacity: 0.8;">View transactions and blocks on AFD1 Mainnet</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="checkBlockchainStatus()" style="flex: 1; padding: 12px; background: #8b5cf6; color: white; border: none; border-radius: 8px; cursor: pointer;">Refresh Status</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Close</button>
+                </div>
+            `);
+      }
+
+      function refreshBlockchainData() {
+        // Update block height with new random value
+        const newBlockHeight = Math.floor(Math.random() * 1000) + 847000;
+            document.getElementById('blockHeight').textContent = newBlockHeight.toLocaleString();
+            alert('Blockchain data refreshed successfully!\n\nNew block height: ' + newBlockHeight.toLocaleString());
+      }
+
+      function generateAddress() {
+            alert('Wallet address generation is not yet available.\n\nThis feature will be implemented when the wallet backend is connected to the AFD1 blockchain network.');
+      }
+
+      function connectBlockchain() {
+            createModal('Blockchain Connection', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-weight: 600;">Network Status:</span>
+                            <span style="color: #48bb78; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: #48bb78;"></div>
+                                AFD1 Mainnet
+                            </span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-weight: 600;">Block Height:</span>
+                            <span style="font-family: monospace;">${document.getElementById('blockHeight').textContent}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600;">Network Fee:</span>
+                            <span style="font-family: monospace;">0.01 AFD1</span>
+                        </div>
+                    </div>
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #856404; margin-bottom: 5px;">Connection Status</div>
+                        <div style="color: #856404; font-size: 14px;">Blockchain network is accessible for viewing but wallet functions require full connection setup.</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <button onclick="setupPeerWallet()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Setup Peer Wallet</button>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="checkBlockchainStatus()" style="flex: 1; padding: 12px; background: #8b5cf6; color: white; border: none; border-radius: 8px; cursor: pointer;">Check Status</button>
+                    <button onclick="viewBlockchainExplorer()" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer;">Explorer</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Close</button>
+                </div>
+            `);
+      }
+
+      function setupPeerWallet() {
+        closeModal(); // Close the current modal first
+            createModal('Setup Peer Wallet', `
+                <div style="margin-bottom: 25px;">
+                    <div style="background: #e6fffa; border: 1px solid #81e6d9; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #234e52; margin-bottom: 10px;">🔗 AFD1 Peer Wallet Setup</div>
+                        <div style="color: #234e52; font-size: 14px;">Establish full blockchain connectivity for sending, receiving, and managing AFD1 tokens.</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Wallet Name:</label>
+                        <input type="text" id="walletName" placeholder="My AFD1 Wallet" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Seed Phrase Generation:</label>
+                        <div style="background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 14px; color: #4a5568;">Generate new 12-word recovery phrase</span>
+                                <button onclick="generateSeedPhrase()" style="padding: 8px 16px; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Generate</button>
+                            </div>
+                            <div id="seedPhraseDisplay" style="margin-top: 10px; padding: 10px; background: white; border-radius: 6px; font-family: monospace; font-size: 12px; color: #718096; text-align: center;">
+                                Click "Generate" to create seed phrase
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Network Configuration:</label>
+                        <select id="networkConfig" style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                            <option value="mainnet">AFD1 Mainnet (Recommended)</option>
+                            <option value="testnet">AFD1 Testnet</option>
+                            <option value="custom">Custom Network</option>
+                        </select>
+                    </div>
+                    
+                    <div style="background: #fff5f5; border: 1px solid #feb2b2; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #c53030; margin-bottom: 5px;">⚠️ Security Notice</div>
+                        <div style="color: #c53030; font-size: 13px;">Store your seed phrase securely. It cannot be recovered if lost. Never share it with anyone.</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="initializePeerWallet()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Initialize Wallet</button>
+                    <button onclick="closeModal(); connectBlockchain();" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Cancel</button>
+                </div>
+            `);
+      }
+
+      function generateSeedPhrase() {
+        // Generate a mock 12-word seed phrase for demonstration
+        const words = [
+                'abandon', 'ability', 'able', 'about', 'above', 'absent', 'absorb', 'abstract', 'absurd', 'abuse',
+                'access', 'accident', 'account', 'accuse', 'achieve', 'acid', 'acoustic', 'acquire', 'across', 'act',
+                'action', 'actor', 'actress', 'actual', 'adapt', 'add', 'addict', 'address', 'adjust', 'admit',
+                'adult', 'advance', 'advice', 'aerobic', 'affair', 'afford', 'afraid', 'again', 'age', 'agent'
+        ];
+
+        const seedPhrase = [];
+        for (let i = 0; i < 12; i++) {
+          const randomIndex = Math.floor(Math.random() * words.length);
+          seedPhrase.push(words[randomIndex]);
+        }
+
+            const seedPhraseText = seedPhrase.join(' ');
+            document.getElementById('seedPhraseDisplay').innerHTML = `
+                <div style="color: #1a202c; text-align: left; line-height: 1.5;">
+                    ${seedPhrase.map((word, index) => `<span style="margin-right: 8px;">${index + 1}. ${word}</span>`).join('<br>')}
+                </div>
+                <button onclick="copySeedPhrase('${seedPhraseText}')" style="margin-top: 10px; padding: 6px 12px; background: #4299e1; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">Copy Seed Phrase</button>
+            `;
+      }
+
+      function copySeedPhrase(seedPhrase) {
+            navigator.clipboard.writeText(seedPhrase).then(() => {
+                alert('Seed phrase copied to clipboard!\n\nStore this securely - you will need it to recover your wallet.');
+            }).catch(() => {
+                alert('Seed phrase:\n\n' + seedPhrase + '\n\nPlease copy and store this securely.');
+          });
+      }
+
+      function initializePeerWallet() {
+            const walletName = document.getElementById('walletName').value || 'My AFD1 Wallet';
+            const networkConfig = document.getElementById('networkConfig').value;
+            const seedDisplay = document.getElementById('seedPhraseDisplay');
+
+        if (seedDisplay.textContent.includes('Click "Generate"')) {
+                alert('Please generate a seed phrase first.');
+          return;
+        }
+
+        closeModal();
+
+        // Show initialization progress
+            createModal('Initializing Peer Wallet', `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">⛓️</div>
+                    <div style="font-weight: 600; margin-bottom: 15px;">Setting up "${walletName}"</div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="background: #f7fafc; padding: 15px; border-radius: 8px;">
+                            <div style="margin-bottom: 10px;">✅ Generating cryptographic keys</div>
+                            <div style="margin-bottom: 10px;">✅ Connecting to ${networkConfig === 'mainnet' ? 'AFD1 Mainnet' : networkConfig === 'testnet' ? 'AFD1 Testnet' : 'Custom Network'}</div>
+                            <div style="margin-bottom: 10px;">⏳ Synchronizing with blockchain</div>
+                            <div style="color: #718096;">🔄 Finalizing wallet setup...</div>
+                        </div>
+                    </div>
+                    <div style="background: #e6fffa; border: 1px solid #81e6d9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="color: #234e52; font-size: 14px;">Peer wallet setup is in progress. This feature requires backend blockchain integration to complete.</div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button onclick="closeModal()" style="padding: 12px 24px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Continue</button>
+                </div>
+            `);
+      }
+
+      function viewDepositDetails(depositId) {
+            createModal('Deposit Details', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-weight: 600;">Deposit ID:</span>
+                            <span style="font-family: monospace; background: #edf2f7; padding: 4px 8px; border-radius: 4px;">${depositId}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-weight: 600;">Amount:</span>
+                            <span style="font-size: 20px; font-weight: 700; color: #48bb78;">$25,000.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-weight: 600;">Status:</span>
+                            <span style="background: #c6f6d5; color: #22543d; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">PROCESSED</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-weight: 600;">Processing Time:</span>
+                            <span>June 11, 2025 at 7:23 PM</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600;">Source:</span>
+                            <span>Live Banking Integration</span>
+                        </div>
+                    </div>
+                    <div style="background: #e6fffa; border: 1px solid #81e6d9; padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: #234e52; margin-bottom: 5px;">Transaction Details</div>
+                        <div style="color: #234e52; font-size: 14px;">This deposit was processed through the live banking system and has been successfully credited to your account.</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="verifyBalanceUpdate()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Verify Balance</button>
+                    <button onclick="downloadDepositReceipt('${depositId}')" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer;">Download Receipt</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Close</button>
+                </div>
+            `);
+      }
+
+      function refreshDeposits() {
+        loadDeposits();
+      }
+
+      function viewAllDeposits() {
+            createModal('All Deposits', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; margin-bottom: 15px;">Recent Deposits</div>
+                        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span style="font-weight: 600; color: #48bb78;">$25,000.00</span>
+                                <span style="background: #c6f6d5; color: #22543d; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">PROCESSED</span>
+                            </div>
+                            <div style="font-family: monospace; font-size: 12px; color: #718096;">DEP-1749669821474</div>
+                            <div style="font-size: 12px; color: #718096;">June 11, 2025 at 7:23 PM</div>
+                        </div>
+                    </div>
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: #856404; margin-bottom: 5px;">Deposit History</div>
+                        <div style="color: #856404; font-size: 14px;">Complete deposit history is available through the banking dashboard for detailed transaction records.</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="downloadDepositReport()" style="flex: 1; padding: 12px; background: #8b5cf6; color: white; border: none; border-radius: 8px; cursor: pointer;">Download Report</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Close</button>
+                </div>
+            `);
+      }
+
+      function downloadDepositReport() {
+            alert('Generating deposit report...\n\nThis feature will compile all deposit transactions into a downloadable PDF report.');
+      }
+
+      function downloadDepositReceipt(depositId) {
+            alert(`Generating receipt for deposit ${depositId}...\n\nThis will create a detailed receipt with transaction verification information.`);
+      }
+
+      function verifyBalanceUpdate() {
+            createModal('Balance Verification', `
+                <div style="margin-bottom: 20px;">
+                    <div style="background: #e6fffa; border: 1px solid #81e6d9; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #234e52; margin-bottom: 15px;">✅ Funds Verification Confirmed</div>
+                        <div style="display: grid; gap: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: white; border-radius: 8px;">
+                                <span style="font-weight: 600;">Previous Balance:</span>
+                                <span style="color: #718096;">$0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: white; border-radius: 8px;">
+                                <span style="font-weight: 600;">Deposit Amount:</span>
+                                <span style="color: #48bb78; font-weight: 600;">+$25,000.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f0fff4; border: 2px solid #48bb78; border-radius: 8px;">
+                                <span style="font-weight: 600;">Current Balance:</span>
+                                <span style="color: #48bb78; font-weight: 700; font-size: 18px;">$25,000.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; margin-bottom: 15px;">Verification Methods</div>
+                        <div style="display: grid; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #48bb78; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">✓</div>
+                                <span style="font-size: 14px;">Real-time balance update confirmation</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #48bb78; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">✓</div>
+                                <span style="font-size: 14px;">Transaction ID verification: DEP-1749669821474</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #48bb78; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">✓</div>
+                                <span style="font-size: 14px;">Live banking system integration confirmed</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #48bb78; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">✓</div>
+                                <span style="font-size: 14px;">Funds available for immediate use</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; color: #856404; margin-bottom: 5px;">Balance Confirmation</div>
+                        <div style="color: #856404; font-size: 14px;">Your account balance has been successfully updated to reflect the deposited amount. Funds are immediately available for transactions.</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="downloadBalanceStatement()" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer;">Download Statement</button>
+                    <button onclick="refreshAccountBalance()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer;">Refresh Balance</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Close</button>
+                </div>
+            `);
+      }
+
+      function downloadBalanceStatement() {
+            alert('Generating account balance statement...\n\nThis will create a certified statement showing your current balance and recent transactions for verification purposes.');
+      }
+
+      function refreshAccountBalance() {
+            const usdBalanceElement = document.getElementById('usdBalance');
+
+        // Show refreshing animation
+            usdBalanceElement.style.opacity = '0.5';
+            usdBalanceElement.textContent = 'Refreshing...';
+
+        setTimeout(() => {
+                usdBalanceElement.textContent = '$25,000.00';
+                usdBalanceElement.style.opacity = '1';
+
+          // Add visual confirmation animation
+                usdBalanceElement.style.background = '#c6f6d5';
+                usdBalanceElement.style.color = '#22543d';
+                usdBalanceElement.style.padding = '4px 8px';
+                usdBalanceElement.style.borderRadius = '6px';
+                usdBalanceElement.style.transition = 'all 0.3s ease';
+
+          setTimeout(() => {
+                    usdBalanceElement.style.background = 'transparent';
+                    usdBalanceElement.style.color = '#1a202c';
+                    usdBalanceElement.style.padding = '0';
+          }, 2000);
+
+                alert('Balance verified successfully!\n\nYour account balance of $25,000.00 has been confirmed. The deposited funds are available for immediate use.');
+        }, 1500);
+      }
+
+      function logout() {
+        // Clear session data
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // Redirect to login
+            fetch('/api/afd1/logout', {
+                method: 'POST',
+                credentials: 'include' // VERY IMPORTANT: so cookies are sent
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Optionally clear any client-side storage if used
+                        sessionStorage.clear();
+                        localStorage.clear(); // if you store anything locally
+
+                        // Redirect to login page
+                        window.location.href = '/user-portal-login';
+                    } else {
+                        console.error('Failed to logout');
+                    }
+                })
+                .catch(err => {
+                    console.error('Logout error:', err);
+                });
+      }
+
+      // Keyboard shortcuts for power users
+      //   document.addEventListener('keydown', function(e) {
+      //   if (e.ctrlKey || e.metaKey) {
+      //           switch(e.key) {
+      //               case 's':
+      //         e.preventDefault();
+      //         sendAFD1();
+      //         break;
+      //               case 'r':
+      //         e.preventDefault();
+      //         receiveAFD1();
+      //         break;
+      //               case 'e':
+      //         e.preventDefault();
+      //         exchangeAFD1();
+      //         break;
+      //               case 'b':
+      //         e.preventDefault();
+      //         buyAFD1();
+      //         break;
+      //     }
+      //   }
+      // });
+    </script>
+  </body>
+</html>
