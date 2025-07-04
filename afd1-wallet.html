@@ -259,16 +259,16 @@
     <button id="sendBtn" onclick="openBuyModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
       📤 Send
     </button>
-    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+    <button id="openBuyEthModal" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+     💰 Buy
+    </button>
+    <button onclick="openSwapModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
       🔄 Swap
     </button>
     <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-      💵 Sell
+       💵 Sell
     </button>
-    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-      💰 Buy
-    </button>
-    <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+    <button onclick="openBridgeModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
       🌉 Bridge
     </button>
   </div>
@@ -276,48 +276,48 @@
 
 <!-- SEND MODAL -->
 <!-- SEND MODAL -->
-<div id="buyModal" class="fixed inset-0 bg-black/50 bg-opacity-70 z-50 hidden flex items-center justify-center ">
-  <div class="bg-gray-900 w-full max-w-md rounded-2xl p-6 text-white relative">
+<div id="buyModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
+  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-xl">
     <button
-      id="closeBuyModal" 
-      class="absolute top-3 right-3 text-gray-300 hover:text-red-400"
+      id="closeBuyModal"
+      class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold"
     >
       &times;
     </button>
-    <h2 class="text-2xl font-bold text-center mb-4">💰 Send ETH</h2>
+    <h2 class="text-2xl font-bold text-center mb-4 text-gray-900">💰 Send ETH</h2>
 
     <div class="mb-4">
-      <label class="block text-sm text-gray-400">Your Wallet</label>
-      <p id="buyWalletAddress" class="text-green-400 truncate"></p>
+      <label class="block text-sm text-gray-600">Your Wallet</label>
+      <p id="buyWalletAddress" class="text-green-600 truncate">-</p>
     </div>
 
     <div class="mb-4">
-      <label class="block text-sm text-gray-400">Network</label>
-      <p id="buyNetwork" class="text-blue-400">-</p>
+      <label class="block text-sm text-gray-600">Network</label>
+      <p id="buyNetwork" class="text-blue-600">-</p>
     </div>
 
     <div class="mb-4">
-      <label class="block text-sm text-gray-400">Balance</label>
-      <p id="buyWalletBalance" class="text-yellow-400">-</p>
+      <label class="block text-sm text-gray-600">Balance</label>
+      <p id="buyWalletBalance" class="text-yellow-600">-</p>
     </div>
 
     <div class="mb-4">
-      <label for="toAddress" class="block text-sm text-gray-400">To Address</label>
+      <label for="toAddress" class="block text-sm text-gray-600">To Address</label>
       <input
         type="text"
         value="0x000000000000000000000000000000000000dead"
         id="toAddressInput"
-        class="w-full p-2 rounded bg-gray-800 border border-gray-600"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500"
         placeholder="0x..."
       />
     </div>
 
     <div class="mb-4">
-      <label for="ethBuyAmount" class="block text-sm text-gray-400">Amount in ETH</label>
+      <label for="ethBuyAmount" class="block text-sm text-gray-600">Amount in ETH</label>
       <input
         type="number"
         id="ethBuyAmount"
-        class="w-full p-2 rounded bg-gray-800 border border-gray-600"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500"
         placeholder="0.01"
         min="0"
         step="any"
@@ -325,8 +325,8 @@
     </div>
 
     <div class="mb-4">
-      <label class="block text-sm text-gray-400">USD Equivalent</label>
-      <p id="usdBuyEstimate" class="text-green-300">$0.00</p>
+      <label class="block text-sm text-gray-600">USD Equivalent</label>
+      <p id="usdBuyEstimate" class="text-green-600">$0.00</p>
     </div>
 
     <button
@@ -338,7 +338,137 @@
   </div>
 </div>
 
+
 <!-- BUY MODAL -->
+
+<div id="buyEthModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center">
+  <div class="bg-white max-w-md w-full rounded-xl p-6 relative">
+    <button id="closeBuyEthModal" class="absolute top-2 right-3 text-gray-600 text-xl">&times;</button>
+    <h2 class="text-xl font-bold mb-4 text-center">Buy ETH with Fiat</h2>
+
+    <div class="mb-3">
+      <label class="text-gray-700 text-sm">Connected Wallet Address</label>
+      <input id="buyEthWalletAddress" type="text" readonly
+             class="w-full p-2 border border-gray-300 rounded bg-gray-100 text-sm" />
+    </div>
+
+    <div class="mb-3">
+      <label class="text-gray-700 text-sm">Amount (USD)</label>
+      <input id="buyEthAmount" type="number" min="10" placeholder="Enter amount in USD"
+             class="w-full p-2 border border-gray-300 rounded text-sm" />
+    </div>
+
+    <button
+      id="confirmBuyEth"
+      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
+    >
+      Buy Now
+    </button>
+  </div>
+</div>
+
+
+<!-- SWAP MODAL -->
+<div id="swapModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
+  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-lg">
+    <button id="closeSwapModal" onclick="closeSwapModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold text-center mb-4">🔄 Swap ETH to Token</h2>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-600">Your Wallet</label>
+      <p id="swapWalletAddress" class="text-blue-600 truncate">-</p>
+    </div>
+
+    <div class="mb-4">
+      <label for="swapAmount" class="block text-sm font-medium text-gray-600">Amount in ETH</label>
+      <input
+        type="number"
+        id="swapAmount"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
+        placeholder="0.01"
+        min="0"
+        step="any"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="swapToToken" class="block text-sm font-medium text-gray-600">Token to Receive</label>
+      <input
+        type="text"
+        value="0x6B175474E89094C44Da98b954EedeAC495271d0F"
+        id="swapToToken"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
+        placeholder="e.g. DAI, USDC or token address"
+      />
+    </div>
+
+    <button
+      id="swapBtn"
+      class="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl"
+    >
+      🔁 Swap Now
+    </button>
+  </div>
+</div>
+
+
+<!-- BRIDGE MODAL -->
+<div id="bridgeModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
+  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-lg">
+    <button id="closeBridgeModal" onclick="closeBridgeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold text-center mb-4">🌉 Bridge Tokens</h2>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-600">Your Wallet</label>
+      <p id="bridgeWalletAddress" class="text-blue-600 truncate">-</p>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-600">From Chain</label>
+      <select id="fromChain" class="w-full p-2 rounded bg-gray-100 border border-gray-300">
+        <option value="ETHEREUM">Ethereum</option>
+        <option value="POLYGON">Polygon</option>
+        <option value="ARBITRUM">Arbitrum</option>
+        <option value="BSC">BNB Chain</option>
+        <!-- Add more chains as needed -->
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-600">To Chain</label>
+      <select id="toChain" class="w-full p-2 rounded bg-gray-100 border border-gray-300">
+        <option value="POLYGON">Polygon</option>
+        <option value="ETHEREUM">Ethereum</option>
+        <option value="ARBITRUM">Arbitrum</option>
+        <option value="BSC">BNB Chain</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-600">Token Symbol (e.g. USDC)</label>
+      <input id="bridgeTokenSymbol" type="text" placeholder="USDC" class="w-full p-2 rounded bg-gray-100 border border-gray-300" />
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-600">Amount</label>
+      <input id="bridgeAmount" type="number" placeholder="0.1" class="w-full p-2 rounded bg-gray-100 border border-gray-300" />
+    </div>
+
+    <button
+      id="bridgeNowBtn"
+      class="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl"
+    >
+      🌉 Bridge Now
+    </button>
+  </div>
+</div>
+
 
 
 
@@ -469,13 +599,26 @@
       <div class="footer-left">Saint Crown AFD1 v1.2</div>
     </div>
   </footer>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AZ4DDiSwxwMppZpjA3eSIyntaK6AVkZknXt-1aBDJ8PUydtCx4AbiRXG9lxOhYM0B8chskAb4BVEvKAB&currency=USD"></script>
+<script async src="https://cdn.transak.com/js/sdk/1.4.1/transak.js"></script>
+
 <script src="js/config.js"></script>
-  <script src="js/check-auth.js"></script>
-  <script src="js/connect-wallet.js"></script>
+<script src="js/check-auth.js"></script>
+<script src="js/connect-wallet.js"></script>
 <script src="js/send-modal.js"></script>
+<script src="js/buy-modal.js"></script>
+<script src="js/swap.js"></script>
+<script src="js/bridge.js"></script>
 
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AZ4DDiSwxwMppZpjA3eSIyntaK6AVkZknXt-1aBDJ8PUydtCx4AbiRXG9lxOhYM0B8chskAb4BVEvKAB&currency=USD"></script>
+
+
+
+
+
+
+
 <script>
 paypal.Buttons({
   createOrder: function(data, actions) {
