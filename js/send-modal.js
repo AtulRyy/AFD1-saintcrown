@@ -1,3 +1,5 @@
+let ethUsdRate = 0;
+
 const buyModal = document.getElementById("buyModal");
 const closeBuyModal = document.getElementById("closeBuyModal");
 const buyWalletAddress = document.getElementById("buyWalletAddress");
@@ -7,11 +9,6 @@ const ethBuyAmount = document.getElementById("ethBuyAmount");
 const usdBuyEstimate = document.getElementById("usdBuyEstimate");
 const toAddressInput = document.getElementById("toAddressInput");
 const buySubmitBtn = document.getElementById("buySubmitBtn");
-
-let connectedAccount = null;
-let provider = null;
-let signer = null;
-let ethUsdRate = 0;
 
 // Fetch ETH/USD conversion rate
 async function fetchEthUsdRate() {
@@ -34,25 +31,26 @@ async function updateBuyModalInfo() {
       return;
     }
 
-    provider = new ethers.BrowserProvider(window.ethereum);
-    signer = await provider.getSigner();
-    connectedAccount = await signer.getAddress();
+    if (!signer || !provider) {
+      provider = new ethers.BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      connectedAccount = await signer.getAddress();
+    }
+
     const network = await provider.getNetwork();
     const balanceBigInt = await provider.getBalance(connectedAccount);
     const ethBalance = ethers.formatEther(balanceBigInt);
 
-    // Update modal UI
     buyWalletAddress.textContent = connectedAccount;
     buyNetwork.textContent = `${network.name} (Chain ID: ${network.chainId})`;
     buyWalletBalance.textContent = `${parseFloat(ethBalance).toFixed(4)} ETH`;
-
   } catch (err) {
     console.error("Error loading wallet info", err);
     alert("Unable to load wallet information.");
   }
 }
 
-// Live USD estimate as user types ETH
+// ETH input → live USD update
 ethBuyAmount.addEventListener("input", () => {
   const ethValue = parseFloat(ethBuyAmount.value || "0");
   usdBuyEstimate.textContent = isNaN(ethValue)
@@ -60,7 +58,7 @@ ethBuyAmount.addEventListener("input", () => {
     : `$${(ethValue * ethUsdRate).toFixed(2)}`;
 });
 
-// Handle buy/transfer operation
+// Send ETH
 buySubmitBtn.addEventListener("click", async () => {
   const amount = parseFloat(ethBuyAmount.value);
   const to = toAddressInput.value.trim();
@@ -82,12 +80,11 @@ buySubmitBtn.addEventListener("click", async () => {
   }
 });
 
-// Modal show/hide logic
-function openSendModal() {
+// Modal show/hide
+function openBuyModal() {
   buyModal.classList.remove("hidden");
   updateBuyModalInfo();
 }
-
 closeBuyModal.addEventListener("click", () => {
   buyModal.classList.add("hidden");
 });

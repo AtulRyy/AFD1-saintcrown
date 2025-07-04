@@ -256,7 +256,7 @@
 
 <div class="my-10 w-full flex justify-center bg-white py-10 rounded-3xl shadow-lg z-[999999999999999]">
   <div class="flex flex-wrap justify-evenly gap-6  w-[85%]">
-    <button onclick="openSendModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+    <button id="sendBtn" onclick="openBuyModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
       📤 Send
     </button>
     <button class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
@@ -274,12 +274,12 @@
   </div>
 </div>
 
-<!-- BUY MODAL -->
-<!-- BUY MODAL -->
+<!-- SEND MODAL -->
+<!-- SEND MODAL -->
 <div id="buyModal" class="fixed inset-0 bg-black/50 bg-opacity-70 z-50 hidden flex items-center justify-center ">
   <div class="bg-gray-900 w-full max-w-md rounded-2xl p-6 text-white relative">
     <button
-      id="closeBuyModal"
+      id="closeBuyModal" 
       class="absolute top-3 right-3 text-gray-300 hover:text-red-400"
     >
       &times;
@@ -337,6 +337,11 @@
     </button>
   </div>
 </div>
+
+<!-- BUY MODAL -->
+
+
+
 
 
 
@@ -397,8 +402,8 @@
             <div class="wallet-actions">
               <button
                 id="walletButton"
-                class="connect-button"
-                onclick="connectWallet()"
+                class="connect-button" onclick="connectWallet()"
+                
               >
                 🦊 Connect Wallet
               </button>
@@ -466,7 +471,10 @@
   </footer>
 <script src="js/config.js"></script>
   <script src="js/check-auth.js"></script>
+  <script src="js/connect-wallet.js"></script>
 <script src="js/send-modal.js"></script>
+
+
     <script src="https://www.paypal.com/sdk/js?client-id=AZ4DDiSwxwMppZpjA3eSIyntaK6AVkZknXt-1aBDJ8PUydtCx4AbiRXG9lxOhYM0B8chskAb4BVEvKAB&currency=USD"></script>
 <script>
 paypal.Buttons({
@@ -495,7 +503,7 @@ paypal.Buttons({
         for (let i = 0; i < logoutButtons.length; i++) {
             logoutButtons[i].addEventListener('click', function () {
                 // Call backend logout API
-                fetch('/api/afd1/logout', {
+                fetch(`${window.BASE_URL}/api/afd1/logout`, {
                     method: 'POST',
                     credentials: 'include' // VERY IMPORTANT: so cookies are sent
                 })
@@ -506,7 +514,7 @@ paypal.Buttons({
                             localStorage.clear(); // if you store anything locally
 
                             // Redirect to login page
-                            window.location.href = '/user-portal-login';
+                            window.location.href = '/user-portal-login.html';
                         } else {
                             console.error('Failed to logout');
                         }
@@ -585,72 +593,6 @@ function disconnectPayPal() {
     </script>
 
     <script>
-      let isWalletConnected = false;
-      let provider, signer;
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const walletButton = document.getElementById("walletButton");
-        const noMetamask = document.getElementById("noMetamask");
-        const subtitle = document.querySelector(".wallet-subtitle");
-        const subCont = document.getElementById("subtitle-container");
-
-        // Check for MetaMask
-        if (!window.ethereum || !window.ethereum.isMetaMask) {
-          walletButton.style.display = "none";
-          noMetamask.style.display = "flex";
-          subCont.style.display = "block";
-          subtitle.style.display = "none";
-          detectBrowserAndSetDownloadLink();
-          return;
-        }
-
-        async function connectWallet() {
-          if (isWalletConnected) {
-            disconnectWallet();
-            return;
-          }
-
-          if (!window.ethereum) {
-            alert("MetaMask not found. Please install it.");
-            return;
-          }
-
-          try {
-            provider = new ethers.BrowserProvider(window.ethereum);
-            signer = await provider.getSigner();
-            const address = await signer.getAddress();
-            const balanceBigInt = await provider.getBalance(address);
-            const balance = ethers.formatEther(balanceBigInt);
-            const network = await provider.getNetwork();
-
-            document.getElementById("walletAddress").innerText =
-              address.slice(0, 6) + "..." + address.slice(-4);
-            document.getElementById("walletBalance").innerText =
-              balance + " ETH";
-            document.getElementById("walletChainId").innerText =
-              network.chainId;
-            document.getElementById("walletNetwork").innerText = network.name;
-            document.getElementById("walletStatusText").innerText =
-              "Connected to: " + network.name;
-            document.getElementById("walletStatusDot").classList.add("active");
-
-            // ✅ Change button to Disconnect
-            const btn = document.getElementById("walletButton");
-            btn.innerText = "Disconnect Wallet";
-            btn.style.backgroundColor = "red";
-
-            isWalletConnected = true;
-          } catch (err) {
-            console.error("Wallet connection failed:", err);
-            alert("Failed to connect wallet.");
-          }
-        }
-
-        window.connectWallet = connectWallet;
-      });
-    </script>
-
-    <script>
       function detectBrowserAndSetDownloadLink() {
         const userAgent = navigator.userAgent;
         const link = document.getElementById("metamaskDownloadLink");
@@ -687,24 +629,8 @@ function disconnectPayPal() {
         }
       }
     </script>
-    <script>
-      function disconnectWallet() {
-        // Clear state/UI
-        document.getElementById("walletAddress").innerText = "-";
-        document.getElementById("walletBalance").innerText = "-";
-        document.getElementById("walletChainId").innerText = "-";
-        document.getElementById("walletNetwork").innerText = "-";
-        document.getElementById("walletStatusText").innerText = "Disconnected";
-        document.getElementById("walletStatusDot").classList.remove("active");
-
-        // Reset button
-        const btn = document.getElementById("walletButton");
-        btn.innerText = "Connect Wallet";
-        btn.style.backgroundColor = "";
-
-        isWalletConnected = false;
-      }
-    </script>
+  
+   
 
 
     <script> 
