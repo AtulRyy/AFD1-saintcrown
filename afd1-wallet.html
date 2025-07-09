@@ -27,8 +27,10 @@
           </div>
         </div>
         <div class="user-section">
-          <div class="user-avatar"></div>
-                <button class="logout-btn logout" onclick="logout()">Logout</button>
+          <div class="user-avatar"><span>Hi</span>
+            <img class="profile-img" src="assets/images/profile.png"/>
+          </div>
+          <img class="logout-btn logout" onclick="logout()" src="assets/images/shutdown_red.png" width="20" />
         </div>
       </div>
 
@@ -76,32 +78,51 @@
           <div class="action-grid">
             <!-- onclick="sendAFD1()" -->
             <div class="action-btn">
-              <span class="action-icon">📤</span>
+              <div class="action-img">
+                <img src="assets/images/direct_12198851.gif"/>
+              </div>
+              <!-- <span class="action-icon">📤</span> -->
               <div class="action-label">Send</div>
             </div>
             <!-- onclick="receiveAFD1()" -->
             <div class="action-btn">
-              <span class="action-icon">📥</span>
+              <div class="action-img">
+                <img src="assets/images/receive.gif"/>
+              </div>
+              <!-- <span class="action-icon">📥</span> -->
               <div class="action-label">Receive</div>
             </div>
             <!-- onclick="buyAFD1()" -->
             <div class="action-btn">
-              <span class="action-icon">💳</span>
+              <div class="action-img">
+                <img src="assets/images/buy.gif"/>
+              </div>
+              <!-- <span class="action-icon">💳</span> -->
               <div class="action-label">Buy</div>
             </div>
             <!-- onclick="stakingRewards()" -->
             <div class="action-btn">
-              <span class="action-icon">🎯</span>
+              <div class="action-img">
+                <img src="assets/images/stack.gif"/>
+              </div>
+              <!-- <span class="action-icon">🎯</span> -->
               <div class="action-label">Stake</div>
             </div>
             <!-- onclick="connectBlockchain()" -->
             <div class="action-btn">
-              <span class="action-icon">⛓️</span>
+              <div class="action-img">
+                <img src="assets/images/Blockchain.gif"/>
+              </div>
+              
+              <!-- <span class="action-icon">⛓️</span> -->
               <div class="action-label">Blockchain</div>
             </div>
             <!-- onclick="walletSettings()" -->
             <div class="action-btn">
-              <span class="action-icon">⚙️</span>
+              <div class="action-img">
+                <img src="assets/images/settings.gif"/>
+              </div>
+              <!-- <span class="action-icon">⚙️</span> -->
               <div class="action-label">Settings</div>
             </div>
           </div>
@@ -143,391 +164,80 @@
       </div> -->
 
       <!-- PayPal Banking Network Integration -->
-      <div class="wallet-card">
-  <div class="wallet-header">
-    <div class="wallet-heading">
-      <img
-        src="https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_640.png"
-        class="rounded-full size-14"
+       <div>
+        <div class="wallet-card">
+          <div class="wallet-header">
+            <div class="wallet-heading">
+              <img
+                src="https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_640.png"
+                class="rounded-full size-14"
+                
+                alt="PayPal"
+              />
+              <div>
+                <h2 class="wallet-title">PayPal Banking Network</h2>
+              </div>
+            </div>
+            <div class="wallet-status">
+              <span class="status-dot active"></span>
+              <span class="status-text">Connecting...</span>
+            </div>
+          </div>
         
-        alt="PayPal"
-      />
-      <div>
-        <h2 class="wallet-title">PayPal Banking Network</h2>
-      </div>
-    </div>
-    <div class="wallet-status">
-      <span class="status-dot active"></span>
-      <span class="status-text">Connecting...</span>
-    </div>
-  </div>
-
-  <div class="wallet-body">
-    <div class="wallet-grid">
-      <div class="wallet-item">
-        <span class="item-label">🏦 Name</span>
-        <span class="item-value" id="paypalEnv">--</span>
-      </div>
-      <div class="wallet-item">
-        <span class="item-label">🧾 Client ID</span>
-        <span class="item-value" id="paypalClientId">••••••••••••</span>
-      </div>
-      <div class="wallet-item">
-        <span class="item-label">⏱ Last Sync</span>
-        <span class="item-value" id="paypalSync">--</span>
-      </div>
-    </div>
-
-    <div
-      style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        flex-wrap: wrap;
-        gap: 10px;
-      "
-    >
-     <div class="flex flex-wrap items-center gap-4">
-  <button class="integration-btn" id="payPalbtn" onclick="testPayPalConnection()">
-    Connect
-  </button>
-  <!-- <button class="integration-btn" onclick="viewPayPalTransactions()">
-    View Transactions
-  </button> -->
-  <button class="integration-btn" onclick="refreshPayPalStatus()">
-    Refresh
-  </button>
-</div>
-
-    </div>
-
-    <hr style="margin: 1.5rem 0; border-top: 1px solid #ddd;" />
-
-    <div class="flex justify-center">
-      <div class="w-[80%]">
-        <!-- <div id="paypal-button-container" ></div> -->
-      </div>
-    </div>
-  </div>
-</div>
-
-      <!-- Blockchain Network Integration -->
-      <!-- <div class="integration-section">
-        <div class="integration-header">
-          <h2 class="integration-title">Blockchain Network</h2>
-          <div class="status-indicator">
-            <div class="status-dot active"></div>
-            <span class="status-text">AFD1 Mainnet</span>
+          <div class="wallet-body">
+            <div class="wallet-grid">
+              <div class="wallet-item">
+                <span class="item-label">🏦 Name</span>
+                <span class="item-value" id="paypalEnv">--</span>
+              </div>
+              <div class="wallet-item">
+                <span class="item-label">🧾 Client ID</span>
+                <span class="item-value" id="paypalClientId">••••••••••••</span>
+              </div>
+              <div class="wallet-item">
+                <span class="item-label">⏱ Last Sync</span>
+                <span class="item-value" id="paypalSync">--</span>
+              </div>
+            </div>
+        
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 10px;
+              "
+            >
+             <div class="flex flex-wrap items-center gap-4">
+          <button class="integration-btn" id="payPalbtn" onclick="testPayPalConnection()">
+            Connect
+          </button>
+          <!-- <button class="integration-btn" onclick="viewPayPalTransactions()">
+            View Transactions
+          </button> -->
+          <button class="integration-btn" onclick="refreshPayPalStatus()">
+            Refresh
+          </button>
+        </div>
+        
+            </div>
+        
+            <!-- <hr style="margin: 1.5rem 0; border-top: 1px solid #ddd;" /> -->
+        
+            <div class="flex justify-center">
+              <div class="w-[80%]">
+                <!-- <div id="paypal-button-container" ></div> -->
+              </div>
+            </div>
           </div>
         </div>
-        <div class="integration-content">
-          <div class="integration-stats">
-            <div class="integration-stat">
-              <span class="stat-label">Block Height</span>
-              <span class="stat-value" id="blockHeight">847,329</span>
-            </div>
-            <div class="integration-stat">
-              <span class="stat-label">Network Fee</span>
-              <span class="stat-value">0.01 AFD1</span>
-            </div>
-            <div class="integration-stat">
-              <span class="stat-label">Confirmations</span>
-              <span class="stat-value">2-5 minutes</span>
-            </div>
-          </div>
-          <div class="integration-actions">
-            <button class="integration-btn" onclick="checkBlockchainStatus()">
-              Check Status
-            </button>
-            <button class="integration-btn" onclick="viewBlockchainExplorer()">
-              Block Explorer
-            </button>
-            <button class="integration-btn" onclick="refreshBlockchainData()">
-              Refresh Data
-            </button>
-          </div>
-        </div>
-      </div> -->
-      <!-- Wallet Integration Section (Retains Same Class Names) -->
 
-      <!-- Ethers.js for Metamask -->
-      <!-- STYLE TESTING STARTS HERE -->
-
-<div class="my-10 w-full flex justify-center bg-white py-10 rounded-3xl shadow-lg z-[999999999999999]">
-  <div class="flex flex-wrap justify-evenly gap-6  w-[85%]">
-    <button id="sendBtn" onclick="openBuyModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-      📤 Send
-    </button>
-    <button id="openBuyEthModal" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-     💰 Buy
-    </button>
-    <button onclick="openSwapModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-      🔄 Swap
-    </button>
-    <button onclick="openSellModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-       💵 Sell
-    </button>
-    <button onclick="openBridgeModal()" class="min-w-[140px] bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold text-lg py-4 px-6 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
-      🌉 Bridge
-    </button>
-  </div>
-</div>
-
-<!-- SEND MODAL -->
-<!-- SEND MODAL -->
-<div id="buyModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
-  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-xl">
-    <button
-      id="closeBuyModal"
-      class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold"
-    >
-      &times;
-    </button>
-    <h2 class="text-2xl font-bold text-center mb-4 text-gray-900">💰 Send ETH</h2>
-
-    <div class="mb-4">
-      <label class="block text-sm text-gray-600">Your Wallet</label>
-      <p id="buyWalletAddress" class="text-green-600 truncate">-</p>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm text-gray-600">Network</label>
-      <p id="buyNetwork" class="text-blue-600">-</p>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm text-gray-600">Balance</label>
-      <p id="buyWalletBalance" class="text-yellow-600">-</p>
-    </div>
-
-    <div class="mb-4">
-      <label for="toAddress" class="block text-sm text-gray-600">To Address</label>
-      <input
-        type="text"
-        value="0x000000000000000000000000000000000000dead"
-        id="toAddressInput"
-        class="w-full p-2 rounded bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500"
-        placeholder="0x..."
-      />
-    </div>
-
-    <div class="mb-4">
-      <label for="ethBuyAmount" class="block text-sm text-gray-600">Amount in ETH</label>
-      <input
-        type="number"
-        id="ethBuyAmount"
-        class="w-full p-2 rounded bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500"
-        placeholder="0.01"
-        min="0"
-        step="any"
-      />
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm text-gray-600">USD Equivalent</label>
-      <p id="usdBuyEstimate" class="text-green-600">$0.00</p>
-    </div>
-
-    <button
-      id="buySubmitBtn"
-      class="w-full py-3 mt-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl"
-    >
-      Send ETH
-    </button>
-  </div>
-</div>
+        <!-- META MASK BEGINS HERE -->
 
 
-<!-- BUY MODAL -->
-
-<div id="buyEthModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center">
-  <div class="bg-white max-w-md w-full rounded-xl p-6 relative">
-    <button id="closeBuyEthModal" class="absolute top-2 right-3 text-gray-600 text-xl">&times;</button>
-    <h2 class="text-xl font-bold mb-4 text-center">Buy ETH with Fiat</h2>
-
-    <div class="mb-3">
-      <label class="text-gray-700 text-sm">Connected Wallet Address</label>
-      <input id="buyEthWalletAddress" type="text" readonly
-             class="w-full p-2 border border-gray-300 rounded bg-gray-100 text-sm" />
-    </div>
-
-    <div class="mb-3">
-      <label class="text-gray-700 text-sm">Amount (USD)</label>
-      <input id="buyEthAmount" type="number" min="10" placeholder="Enter amount in USD"
-             class="w-full p-2 border border-gray-300 rounded text-sm" />
-    </div>
-
-    <button
-      id="confirmBuyEth"
-      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
-    >
-      Buy Now
-    </button>
-  </div>
-</div>
-
-
-<!-- SWAP MODAL -->
-<div id="swapModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
-  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-lg">
-    <button id="closeSwapModal" onclick="closeSwapModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">
-      &times;
-    </button>
-
-    <h2 class="text-2xl font-bold text-center mb-4">🔄 Swap ETH to Token</h2>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">Your Wallet</label>
-      <p id="swapWalletAddress" class="text-blue-600 truncate">-</p>
-    </div>
-
-    <div class="mb-4">
-      <label for="swapAmount" class="block text-sm font-medium text-gray-600">Amount in ETH</label>
-      <input
-        type="number"
-        id="swapAmount"
-        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
-        placeholder="0.01"
-        min="0"
-        step="any"
-      />
-    </div>
-
-    <div class="mb-4">
-      <label for="swapToToken" class="block text-sm font-medium text-gray-600">Token to Receive</label>
-      <input
-        type="text"
-        value="0x6B175474E89094C44Da98b954EedeAC495271d0F"
-        id="swapToToken"
-        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
-        placeholder="e.g. DAI, USDC or token address"
-      />
-    </div>
-
-    <button
-      id="swapBtn"
-      class="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl"
-    >
-      🔁 Swap Now
-    </button>
-  </div>
-</div>
-
-
-<!-- BRIDGE MODAL -->
-<div id="bridgeModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
-  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-lg">
-    <button id="closeBridgeModal" onclick="closeBridgeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">
-      &times;
-    </button>
-
-    <h2 class="text-2xl font-bold text-center mb-4">🌉 Bridge Tokens</h2>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">Your Wallet</label>
-      <p id="bridgeWalletAddress" class="text-blue-600 truncate">-</p>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">From Chain</label>
-      <select id="fromChain" class="w-full p-2 rounded bg-gray-100 border border-gray-300">
-        <option value="ETHEREUM">Ethereum</option>
-        <option value="POLYGON">Polygon</option>
-        <option value="ARBITRUM">Arbitrum</option>
-        <option value="BSC">BNB Chain</option>
-        <!-- Add more chains as needed -->
-      </select>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">To Chain</label>
-      <select id="toChain" class="w-full p-2 rounded bg-gray-100 border border-gray-300">
-        <option value="POLYGON">Polygon</option>
-        <option value="ETHEREUM">Ethereum</option>
-        <option value="ARBITRUM">Arbitrum</option>
-        <option value="BSC">BNB Chain</option>
-      </select>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">Token Symbol (e.g. USDC)</label>
-      <input id="bridgeTokenSymbol" type="text" placeholder="USDC" class="w-full p-2 rounded bg-gray-100 border border-gray-300" />
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">Amount</label>
-      <input id="bridgeAmount" type="number" placeholder="0.1" class="w-full p-2 rounded bg-gray-100 border border-gray-300" />
-    </div>
-
-    <button
-      id="bridgeNowBtn"
-      class="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl"
-    >
-      🌉 Bridge Now
-    </button>
-  </div>
-</div>
-
-
-
-<!-- SELL MODAL -->
-<div id="sellModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center">
-  <div class="bg-white w-full max-w-md rounded-2xl p-6 text-gray-900 relative shadow-lg">
-    <button onclick="closeSellModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">
-      &times;
-    </button>
-
-    <h2 class="text-2xl font-bold text-center mb-4">💸 Sell Crypto</h2>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-600">Your Wallet</label>
-      <p id="sellWalletAddress" class="text-blue-600 truncate">-</p>
-    </div>
-
-    <div class="mb-4">
-      <label for="sellAmount" class="block text-sm font-medium text-gray-600">Amount</label>
-      <input
-        type="number"
-        id="sellAmount"
-        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
-        placeholder="0.1"
-        min="0"
-        step="any"
-      />
-    </div>
-
-    <div class="mb-4">
-      <label for="sellToken" class="block text-sm font-medium text-gray-600">Token (e.g. USDC)</label>
-      <input
-        type="text"
-        id="sellToken"
-        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
-        placeholder="USDC"
-      />
-    </div>
-
-    <button
-      id="sellNowBtn"
-      class="w-full py-3 mt-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl"
-    >
-      💰 Sell Now
-    </button>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-<!-- META MASK BEGINS HERE -->
-
-
-      <div class="wallet-card" id="walletSection">
+      <div class="wallet-card mt-5" id="walletSection">
         <div class="wallet-header">
           <div class="wallet-heading">
             <img
@@ -566,15 +276,8 @@
           </div>
 
           <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              width: 100%;
-              flex-wrap: wrap;
-              gap: 10px;
-            "
-            id="subtitle-container"
+            
+            id="subtitle-container" class="flex justify-between items-center"
           >
             <div class="wallet-actions">
               <button
@@ -605,11 +308,303 @@
         </div>
       </div>
 
+       </div>
+      
+
+   
+
+<div class="my-5 w-full  bg-white py-10 shadow-lg z-[999999999999999]">
+  <div class="modal-btn flex w-full flex-wrap justify-evenly gap-6  w-[85%]">
+    <button id="sendBtn" onclick="openBuyModal()" class="min-w-[140px] bg-[#357bb5] from-teal-500 to-blue-500 text-white font-semibold text-lg px-[20px] py-[8px] rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      <span class="text-[25px] modal-icon">📤</span> Send
+    </button>
+    <button id="openBuyEthModal" onclick="openBuyEthModal()" class="min-w-[140px] bg-[#357bb5] from-teal-500 to-blue-500 text-white font-semibold text-lg px-[20px] py-[8px] rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      <span class="text-[25px] modal-icon">💰</span> Buy
+    </button>
+    <button onclick="openSwapModal()" class="min-w-[140px] bg-[#357bb5] from-teal-500 to-blue-500 text-white font-semibold text-lg px-[20px] py-[8px] rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+      <span class="text-[25px] modal-icon">🔄</span> Swap
+    </button>
+    <button onclick="openSellModal()" class="min-w-[140px] bg-[#357bb5] from-teal-500 to-blue-500 text-white font-semibold text-lg px-[20px] py-[8px] rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+       <span class="text-[25px] modal-icon">💵 </span>Sell
+    </button>
+    <button onclick="openBridgeModal()" class="min-w-[140px] bg-[#357bb5] from-teal-500 to-blue-500 text-white font-semibold text-lg px-[20px] py-[8px] rounded-full shadow-md hover:shadow-lg hover:shadow-blue-400/50 transition-all">
+    <span class="text-[25px] modal-icon">🌉</span> Bridge
+    </button>
+  </div>
+  <!-- SEND MODAL -->
+  <div id="buyModal" class="w-full mt-10 m-auto hidden">
+    <div class="relative rounded-2xl p-6 text-gray-900 inset-shadow-sm w-7/8 m-auto bg-[#E2F3F9]">
+          <button
+          id="closeBuyModal"
+          class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
+          onclick="closeBuyModal()"
+        >
+          &times;
+        </button>
+      <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 text-left">💰 Send ETH</h2>
+      <div class="send-modal-main">
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label class="block text-sm text-gray-800 pb-1">Your Wallet</label>
+          <p id="buyWalletAddress" class="text-green-600 truncate">-</p>
+        </div>
+  
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label class="block text-sm text-gray-800 pb-1">Network</label>
+          <p id="buyNetwork" class="text-blue-600">-</p>
+        </div>
+  
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label class="block text-sm text-gray-800 pb-1">Balance</label>
+          <p id="buyWalletBalance" class="text-yellow-600">-</p>
+        </div>
+        </div>
+        <div class="send-modal-main">
+  
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label for="toAddress" class="block text-sm text-gray-800 pb-1">To Address</label>
+          <input
+            type="text"
+            value="0x000000000000000000000000000000000000dead"
+            id="toAddressInput"
+            class="w-full p-2 rounded bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500"
+            placeholder="0x..."
+          />
+        </div>
+  
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label for="ethBuyAmount" class="block text-sm text-gray-800 pb-1">Amount in ETH</label>
+          <input
+            type="number"
+            id="ethBuyAmount"
+            class="w-full p-2 rounded bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500"
+            placeholder="0.01"
+            min="0"
+            step="any"
+          />
+        </div></div>
+
+        <div class="send-modal-main">
+  
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label class="block text-sm text-gray-800 pb-1">USD Equivalent</label>
+          <p id="usdBuyEstimate" class="text-green-600">$0.00</p>
+        </div>
+        <button
+        id="buySubmitBtn"
+        class="max-w-[150px] w-full py-3 bg-[#357bb5] hover:bg-[#2563eb] text-white font-semibold rounded-xl"
+      >
+        Send ETH
+      </button>
+
+      </div>
+      
+
+     
+    </div>
+  </div>
+
+  <!-- BUY MODAL -->
+
+  <div id="buyEthModal" class="w-full mt-10 m-auto hidden">
+    <div class="bg-[#E2F3F9] rounded-xl p-6 relative inset-shadow-sm w-7/8 m-auto">
+      <!-- <button id="closeBuyEthModal" class="absolute top-2 right-3 text-gray-600 text-xl">&times;</button> -->
+      <button
+          id="closeBuyEthModal"
+          class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
+          onclick="closeBuyEthModal()"
+        >
+          &times;
+        </button>
+      <h2 class="text-xl font-bold mb-4 text-center text-left">Buy ETH with Fiat</h2>
+
+      <div class="send-modal-main flex flex-col md:flex-row justify-between items-center">
+
+        <div class="mb-4 w-full bg-white px-2 py-4 rounded-xl">
+          <label class="text-gray-800 text-sm">Connected Wallet Address</label>
+          <p id="buyEthWalletAddress" class="text-green-600 truncate"></p>
+        </div>
+  
+        <div class="mb-4 w-full bg-white p-2 rounded-xl">
+          <label class="text-gray-800 text-sm">Amount (USD)</label>
+          <input id="buyEthAmount" type="number" min="10" placeholder="Enter amount in USD"
+                class="w-full p-2 border border-gray-300 rounded text-sm mt-1" />
+        </div>
+        <button
+        id="confirmBuyEth"
+        class="max-w-[150px] w-full bg-[#357bb5] hover:bg-[#2563eb] text-white font-semibold py-2 px-4 rounded-xl">Buy Now</button>
+      </div>
+      
+
+      
+    </div>
+  </div>
+
+  <!-- SWAP MODAL -->
+<div id="swapModal" class="w-full mt-10 m-auto hidden">
+  <div class="bg-[#E2F3F9] rounded-2xl p-6 text-gray-900 relative inset-shadow-sm w-7/8 m-auto">
+    <button
+          id="closeSwapModal"
+          class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
+          onclick="closeSwapModal()"
+        >
+          &times;
+        </button>
+
+    <h2 class="text-2xl font-bold text-center mb-4 text-left">🔄 Swap ETH to Token</h2>
+    <div class="send-modal-main">
+      <div class="mb-4 w-full bg-white px-2 py-4 rounded-xl">
+        <label class="block text-sm font-medium text-gray-800 pb-1">Your Wallet</label>
+        <p id="swapWalletAddress" class="text-green-600 truncate">-</p>
+      </div>
+  
+      <div class="mb-4 w-full bg-white p-2 rounded-xl">
+        <label for="swapAmount" class="block text-sm font-medium text-gray-800 pb-1">Amount in ETH</label>
+        <input
+          type="number"
+          id="swapAmount"
+          class="w-full p-2 rounded bg-gray-100 border border-gray-300"
+          placeholder="0.01"
+          min="0"
+          step="any"
+        />
+      </div>
+    </div>
+    
+    <div class="send-modal-main">
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label for="swapToToken" class="block text-sm font-medium text-gray-800 pb-1">Token to Receive</label>
+      <input
+        type="text"
+        value="0x6B175474E89094C44Da98b954EedeAC495271d0F"
+        id="swapToToken"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
+        placeholder="e.g. DAI, USDC or token address"
+      />
+    </div>
+
+    <button
+      id="swapBtn"
+      class="max-w-[150px] w-full py-3 bg-[#357bb5] hover:bg-[#2563eb] text-white font-semibold rounded-xl"
+    >
+      Swap Now
+    </button>
+    </div>
+  </div>
+</div>
+
+<!-- SELL MODAL -->
+<div id="sellModal" class="w-full mt-10 m-auto hidden">
+  <div class="bg-[#E2F3F9] rounded-2xl p-6 text-gray-900 relative inset-shadow-sm w-7/8 m-auto">
+    <button onclick="closeSellModal()" class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold text-center mb-4 text-left">💸 Sell Crypto</h2>
+    <div class="send-modal-main">
+    <div class="mb-4 w-full bg-white px-2 py-4 rounded-xl">
+      <label class="block text-sm font-medium text-gray-800 pb-1">Your Wallet</label>
+      <p id="sellWalletAddress" class="text-green-600 truncate">-</p>
+    </div>
+
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label for="sellAmount" class="block text-sm font-medium text-gray-800 pb-1">Amount</label>
+      <input
+        type="number"
+        id="sellAmount"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
+        placeholder="0.1"
+        min="0"
+        step="any"
+      />
+    </div>
+    </div>
+    <div class="send-modal-main">
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label for="sellToken" class="block text-sm font-medium text-gray-800 pb-1">Token (e.g. USDC)</label>
+      <input
+        type="text"
+        id="sellToken"
+        class="w-full p-2 rounded bg-gray-100 border border-gray-300"
+        placeholder="USDC"
+      />
+    </div>
+
+    <button
+      id="sellNowBtn"
+      class="max-w-[150px] w-full py-3 bg-[#357bb5] hover:bg-[#2563eb] text-white font-semibold rounded-xl"
+    >
+      Sell Now
+    </button>
+    </div>
+  </div>
+</div>
+
+<!-- BRIDGE MODAL -->
+<div id="bridgeModal" class="w-full mt-10 m-auto hidden">
+  <div class="bg-[#E2F3F9] rounded-2xl p-6 text-gray-900 relative inset-shadow-sm w-7/8 m-auto">
+    <button id="closeBridgeModal" onclick="closeBridgeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold text-center mb-4 text-left">🌉 Bridge Tokens</h2>
+    <div class="send-modal-main">
+    <div class="mb-4 w-full bg-white px-2 py-4 rounded-xl">
+      <label class="block text-sm font-medium text-gray-800 pb-1">Your Wallet</label>
+      <p id="bridgeWalletAddress" class="text-green-600 truncate">-</p>
+    </div>
+
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label class="block text-sm font-medium text-gray-800 pb-1">From Chain</label>
+      <select id="fromChain" class="w-full p-2 rounded bg-gray-100 border border-gray-300">
+        <option value="ETHEREUM">Ethereum</option>
+        <option value="POLYGON">Polygon</option>
+        <option value="ARBITRUM">Arbitrum</option>
+        <option value="BSC">BNB Chain</option>
+        <!-- Add more chains as needed -->
+      </select>
+    </div>
+    </div>
+    <div class="send-modal-main">
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label class="block text-sm font-medium text-gray-800 pb-1">To Chain</label>
+      <select id="toChain" class="w-full p-2 rounded bg-gray-100 border border-gray-300">
+        <option value="POLYGON">Polygon</option>
+        <option value="ETHEREUM">Ethereum</option>
+        <option value="ARBITRUM">Arbitrum</option>
+        <option value="BSC">BNB Chain</option>
+      </select>
+    </div>
+
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label class="block text-sm font-medium text-gray-800 pb-1">Token Symbol (e.g. USDC)</label>
+      <input id="bridgeTokenSymbol" type="text" placeholder="USDC" class="w-full p-2 rounded bg-gray-100 border border-gray-300" />
+    </div>
+    </div>
+    <div class="send-modal-main">
+    <div class="mb-4 w-full bg-white p-2 rounded-xl">
+      <label class="block text-sm font-medium text-gray-800 pb-1">Amount</label>
+      <input id="bridgeAmount" type="number" placeholder="0.1" class="w-full p-2 rounded bg-gray-100 border border-gray-300" />
+    </div>
+
+    <button
+      id="bridgeNowBtn"
+      class="max-w-[150px] w-full py-3 bg-[#357bb5] hover:bg-[#2563eb] text-white font-semibold rounded-xl"
+    >
+      Bridge Now
+    </button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
       <!-- STYLE TESTING Ends HERE -->
       <!-- Live Bank Deposits -->
        
       <div class="relative">
-        <div class="w-full h-full z-10 absolute rounded-xl top-0 left-0 bg-[#57575791]"></div>
+        <div class="w-full h-full z-10 absolute top-0 left-0 bg-[#57575791]"></div>
         <div class="integration-section">
         
         <div class="integration-header">
@@ -638,11 +633,19 @@
       </div>
     </div>
       </div>
+      <div id="bottomMessageBox" class="message-box hidden fixed bottom-5 right-27 transform -translate-x-1/2 z-50">
+        <span id="bottomMessageText"></span>
+        <button id="closeBottomMessage" onclick="hideBottomMessage()" class="ml-4 text-xl font-bold">&times;</button>
+      </div>
+      
+      
+      
     <!-- FOOTER -->
    <footer class="sc-footer">
     <div class="footer-inner">
       
       <div class="footer-center">© Copyright 2025 Saint Crown AFD1</div>
+      <a href="mailto:support@saintcrown.org">support@saintcrown.org</a>
       <div class="footer-left">Saint Crown AFD1 v1.2</div>
     </div>
   </footer>
@@ -651,6 +654,7 @@
 <script async src="https://cdn.transak.com/js/sdk/1.4.1/transak.js"></script>
 
 <script src="js/config.js"></script>
+<script src="js/modal-utils.js"></script>
 <script src="js/check-auth.js"></script>
 <script src="js/connect-wallet.js"></script>
 <script src="js/send-modal.js"></script>
@@ -881,7 +885,7 @@ function disconnectPayPal() {
                                     <div style="font-size: 12px; color: #718096;">${formattedDate}</div>
                                 </div>
                                 <div class="deposit-actions">
-                                    <button onclick="viewDepositDetails('${deposit.depositId}')" style="padding: 8px 16px; background: #4299e1; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">View Details</button>
+                                    <button onclick="viewDepositDetails('${deposit.depositId}')" style="padding: 8px 16px; background: #357bb5; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">View Details</button>
                                 </div>
                             </div>
                         `;
@@ -911,7 +915,7 @@ function disconnectPayPal() {
                             <div style="font-size: 12px; color: #718096;">June 11, 2025 at 7:52 PM</div>
                         </div>
                         <div class="deposit-actions">
-                            <button onclick="viewDepositDetails('DEP-1749671549452')" style="padding: 8px 16px; background: #4299e1; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">View Details</button>
+                            <button onclick="viewDepositDetails('DEP-1749671549452')" style="padding: 8px 16px; background: #357bb5; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">View Details</button>
                         </div>
                     </div>
                 `;
@@ -1835,9 +1839,9 @@ document.addEventListener('DOMContentLoaded', setDefaultPriceDisplay);
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button onclick="verifyBalanceUpdate()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Verify Balance</button>
-                    <button onclick="downloadDepositReceipt('${depositId}')" style="flex: 1; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer;">Download Receipt</button>
-                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Close</button>
+                    <button onclick="verifyBalanceUpdate()" style="flex: 1; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500;">Verify Balance</button>
+                    <button onclick="downloadDepositReceipt('${depositId}')" style="flex: 1; padding: 12px; background: #357bb5; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500;">Download Receipt</button>
+                    <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500;">Close</button>
                 </div>
             `);
       }
@@ -1866,7 +1870,7 @@ document.addEventListener('DOMContentLoaded', setDefaultPriceDisplay);
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button onclick="downloadDepositReport()" style="flex: 1; padding: 12px; background: #8b5cf6; color: white; border: none; border-radius: 8px; cursor: pointer;">Download Report</button>
+                    <button onclick="downloadDepositReport()" style="flex: 1; padding: 12px; background: #357bb5; color: white; border: none; border-radius: 8px; cursor: pointer;">Download Report</button>
                     <button onclick="closeModal()" style="flex: 1; padding: 12px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 8px; cursor: pointer;">Close</button>
                 </div>
             `);
@@ -2020,5 +2024,6 @@ document.addEventListener('DOMContentLoaded', setDefaultPriceDisplay);
       //   }
       // });
     </script>
+    
   </body>
 </html>

@@ -1,6 +1,7 @@
 const sellWalletAddress = document.getElementById("sellWalletAddress");
 
 function openSellModal() {
+  hideAllModals();
   document.getElementById("sellModal").classList.remove("hidden");
   sellWalletAddress.textContent = connectedAccount || "-";
 }

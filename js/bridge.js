@@ -13,7 +13,7 @@ const chainIdMap = {
 
 async function performBridge() {
   const wallet = connectedAccount;
-  if (!wallet) return alert("⚠️ Wallet not connected");
+  if (!wallet) return showBottomMessage("Wallet not connected", "error");
 
   const tokenSymbol = bridgeTokenSymbolInput.value.trim().toUpperCase();
   const amount = parseFloat(bridgeAmountInput.value);
@@ -21,14 +21,14 @@ async function performBridge() {
   const toChainKey = toChainInput.value.trim().toLowerCase();
 
   if (!tokenSymbol || !amount || !fromChainKey || !toChainKey) {
-    return alert("⚠️ Fill all fields");
+    return showBottomMessage("Fill all fields", "error");
   }
 
   const fromChain = chainIdMap[fromChainKey];
   const toChain = chainIdMap[toChainKey];
 
   if (!fromChain || !toChain) {
-    return alert("❌ Unsupported chain selected.");
+    return showBottomMessage("Unsupported chain selected.", "error");
   }
 
   try {
@@ -48,7 +48,7 @@ async function performBridge() {
     const toToken = toTokenList.find(t => t.symbol?.toUpperCase() === tokenSymbol);
 
     if (!fromToken || !toToken) {
-      return alert(`❌ ${tokenSymbol} not supported on both chains.`);
+      return showBottomMessage(`${tokenSymbol} not supported on both chains.`, "error");
     }
 
     const amountInWei = BigInt(amount * (10 ** fromToken.decimals)).toString();
@@ -79,11 +79,11 @@ async function performBridge() {
       params: [quoteData.transactionRequest],
     });
 
-    alert(`✅ Bridge started! Tx hash:\n${tx}`);
+    showBottomMessage(`Bridge started! Tx hash:\n${tx}`, "success");
     closeBridgeModal();
   } catch (err) {
     console.error("Bridge error:", err);
-    alert("❌ Bridge failed:\n" + (err.message || err));
+    showBottomMessage("Bridge failed:\n" + (err.message || err), "success");
   }
 }
 
@@ -91,6 +91,7 @@ bridgeBtn.addEventListener('click', performBridge);
 
 // Modal helpers
 function openBridgeModal() {
+  hideAllModals();
   document.getElementById("bridgeModal").classList.remove("hidden");
   document.getElementById("bridgeWalletAddress").textContent = connectedAccount || '-';
 }

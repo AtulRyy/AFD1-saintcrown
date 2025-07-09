@@ -27,7 +27,7 @@ async function updateBuyModalInfo() {
     await fetchEthUsdRate();
 
     if (!window.ethereum) {
-      alert("MetaMask not found.");
+      showBottomMessage("MetaMask not found.", "error");
       return;
     }
 
@@ -46,7 +46,7 @@ async function updateBuyModalInfo() {
     buyWalletBalance.textContent = `${parseFloat(ethBalance).toFixed(4)} ETH`;
   } catch (err) {
     console.error("Error loading wallet info", err);
-    alert("Unable to load wallet information.");
+    showBottomMessage("Unable to load wallet information.", "error");
   }
 }
 
@@ -64,7 +64,7 @@ buySubmitBtn.addEventListener("click", async () => {
   const to = toAddressInput.value.trim();
 
   if (!amount || amount <= 0 || !ethers.isAddress(to)) {
-    return alert("Please enter a valid ETH amount and a valid address.");
+    return showBottomMessage("Please enter a valid ETH amount and a valid address.", "error");
   }
 
   try {
@@ -73,18 +73,20 @@ buySubmitBtn.addEventListener("click", async () => {
       value: ethers.parseEther(amount.toString()),
     });
 
-    alert(`Transaction sent! Hash:\n${tx.hash}`);
+    showBottomMessage(`Transaction sent! Hash:\n${tx.hash}`, "success");
   } catch (err) {
     console.error("Transaction failed", err);
-    alert("Transaction failed: " + err.message);
+    showBottomMessage("Transaction failed: " + err.message, "error");
   }
 });
 
 // Modal show/hide
 function openBuyModal() {
+  hideAllModals(); 
   buyModal.classList.remove("hidden");
   updateBuyModalInfo();
 }
+
 closeBuyModal.addEventListener("click", () => {
   buyModal.classList.add("hidden");
 });

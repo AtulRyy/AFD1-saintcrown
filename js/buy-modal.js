@@ -8,13 +8,14 @@
 
   if (buyButton) {
     buyButton.addEventListener("click", async () => {
-      if (!window.ethereum) return alert("MetaMask not found");
+      hideAllModals();
+      if (!window.ethereum) return showBottomMessage("MetaMask not found", "error");
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       connectedAccount = await signer.getAddress();
 
-      document.getElementById("buyEthWalletAddress").value = connectedAccount;
+      document.getElementById("buyEthWalletAddress").textContent = connectedAccount || '-';
       document.getElementById("buyEthModal").classList.remove("hidden");
     });
   }
@@ -33,10 +34,10 @@
     confirmBtn.addEventListener("click", async () => {
       const amountUSD = parseFloat(document.getElementById("buyEthAmount").value);
       if (!amountUSD || amountUSD < 10) {
-        return alert("Minimum amount is $10");
+        return showBottomMessage("Minimum amount is $10", "error");
       }
 
-      if (!window.ethereum) return alert("MetaMask not found");
+      if (!window.ethereum) return showBottomMessage("MetaMask not found", "error");
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -69,7 +70,7 @@
 
       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
         console.log("Transaction successful:", orderData);
-        alert("Your ETH purchase was successful!");
+        showBottomMessage("Your ETH purchase was successful!", "success");
         transak.close();
       });
     });

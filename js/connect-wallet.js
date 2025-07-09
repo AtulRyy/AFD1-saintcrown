@@ -71,9 +71,21 @@ function disconnectWallet() {
 function detectBrowserAndSetDownloadLink() {
   const link = document.getElementById("metamaskDownloadLink");
   const ua = navigator.userAgent.toLowerCase();
+
   if (ua.includes("firefox")) {
+    // Firefox
     link.href = "https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/";
-  } else {
+  } else if (ua.includes("opr") || ua.includes("opera")) {
+    // Opera
+    link.href = "https://addons.opera.com/en-gb/extensions/details/metamask-10/?utm_source=www.google.com";
+  } else if (ua.includes("edg")) {
+    // Edge
+    link.href = "https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US&utm_source=www.google.com";
+  } else if (ua.includes("chrome") || ua.includes("crios")) {
+    // Chrome & Brave
     link.href = "https://chrome.google.com/webstore/detail/metamask/";
+  } else {
+    // All other browsers (e.g., Safari, unknown)
+    link.href = "https://metamask.io/download";
   }
 }

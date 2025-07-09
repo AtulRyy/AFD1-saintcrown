@@ -4,14 +4,13 @@ const swapToTokenInput = document.getElementById('swapToToken');
 
 async function performSwap() {
   if (!connectedAccount) {
-    return alert("Wallet not connected");
+    return showBottomMessage("Wallet not connected", "error");
   }
-
   const buyToken = swapToTokenInput.value.trim();
-  if (!buyToken) return alert("Enter a token symbol or address (e.g., DAI)");
+  if (!buyToken) return showBottomMessage("Enter a token symbol or address (e.g., DAI)", "error");
 
   const sellAmount = parseFloat(swapAmountInput.value);
-  if (!sellAmount || sellAmount <= 0) return alert("Enter a valid ETH amount");
+  if (!sellAmount || sellAmount <= 0) return showBottomMessage("Enter a valid ETH amount", "error");
 
   const sellAmountWei = ethers.parseEther(sellAmount.toString());
 
@@ -49,11 +48,11 @@ async function performSwap() {
       params: [txParams],
     });
 
-    alert(`✅ Swap executed!\nTx Hash: ${txHash}`);
+    showBottomMessage(`Swap executed!\nTx Hash: ${txHash}`, "success");
     closeSwapModal();
   } catch (e) {
     console.error("Swap failed", e);
-    alert("❌ Swap failed:\n" + (e.message || e));
+    showBottomMessage("Swap failed:\n" + (e.message || e), "error");
   }
 }
 
@@ -61,6 +60,7 @@ swapBtn.addEventListener('click', performSwap);
 
 // Modal controls
 function openSwapModal() {
+  hideAllModals();
   document.getElementById("swapModal").classList.remove("hidden");
   document.getElementById("swapWalletAddress").textContent = connectedAccount || '-';
 }
